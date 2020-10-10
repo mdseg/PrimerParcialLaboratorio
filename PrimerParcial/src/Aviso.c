@@ -92,7 +92,7 @@ int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, in
 						}
 						break;
 					case 3:
-						if(utn_getInt(&bufferIdCliente, INPUT_IDCLIENTE, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 && cliente_findClienteById(listClientes, lenClientes, bufferIdCliente))
+						if(utn_getInt(&bufferIdCliente, INPUT_IDCLIENTE, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 && cliente_findClienteById(listClientes, lenClientes, bufferIdCliente) != 1)
 						{
 							bufferAviso.idCliente = bufferIdCliente;
 							flagCarga = TRUE;
@@ -117,26 +117,33 @@ int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, in
 	return retorno;
 }
 
-int aviso_createAviso(Aviso* list, int lenAvisos)
+int aviso_createAviso(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, int lenClientes)
 {
 	int retorno = -1;
 	int id;
-	char nombre[LONG_NAME];
-	char apellido[LONG_NAME];
-	char cuit[LONG_NAME];
+	int rubro;
+	char contenido[LONG_NAME];
+	int idCliente;
 	int index;
-	if(aviso_searchFreeIndex(list, &index, lenAvisos) == 0 &&
-		utn_getName(INPUT_NAME,ERROR_GENERIC,nombre, ATTEMPTS, LONG_NAME) == 0 &&
-		utn_getName(INPUT_APELLIDO,ERROR_GENERIC,apellido, ATTEMPTS, LONG_NAME) == 0 &&
-		utn_getCuit(INPUT_CUIT, ERROR_GENERIC, cuit, ATTEMPTS, LONG_NAME) == 0
+	if(aviso_searchFreeIndex(listAvisos, &index, lenAvisos) == 0 &&
+		cliente_printClientes(listClientes, lenClientes) == 0 &&
+		utn_getInt(&idCliente, INPUT_IDCLIENTE, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 &&
+		cliente_findClienteById(listClientes, lenClientes, idCliente) != -1
 		)
 	{
-		id = generateNewId();
-		list[index].idAviso=id;
-
-	    list[index].isEmpty = FALSE;
-	    printf(CREATE_AVISO_SUCCESS,list[index].idAviso);
-		retorno = 0;
+		if(utn_getInt(&rubro, INPUT_RUBRO, ERROR_GENERIC, RUBRO_MIN, RUBRO_MAX, ATTEMPTS) == 0 &&
+			utn_getString(INPUT_CONTENIDO, ERROR_GENERIC, contenido, ATTEMPTS, LONG_NAME) == 0 )
+		{
+			id = generateNewId();
+			listAvisos[index].idAviso=id;
+			listAvisos[index].isEmpty = FALSE;
+			listAvisos[index].isActive = TRUE;
+			listAvisos[index].rubro = rubro;
+			listAvisos[index].idCliente = idCliente;
+			strcpy(listAvisos[index].contenido,contenido);
+			printf(CREATE_AVISO_SUCCESS,listAvisos[index].idAviso);
+			retorno = 0;
+		}
 	}
 	return retorno;
 }
@@ -186,7 +193,7 @@ int aviso_initAvisos(Aviso* list, int lenAvisos)
 		{
 			for(i = 0;i<lenAvisos;i++)
 			{
-			list[i].idAviso = -1;
+			list[i].isActive = FALSE;
 			list[i].isEmpty = TRUE;
 			}
 			retorno = 0;

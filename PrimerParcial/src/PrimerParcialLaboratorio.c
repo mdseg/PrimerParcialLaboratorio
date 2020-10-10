@@ -13,13 +13,15 @@
 #include <string.h>
 #include "utn.h"
 #include "Cliente.h"
+#include "Aviso.h"
 #include <ctype.h>
 
 int main(void) {
 	int op;
 	Cliente clientes[QTY_CLIENTES];
+	Aviso avisos[QTY_AVISOS];
 	cliente_initClientes(clientes, QTY_CLIENTES);
-
+	aviso_initAvisos(avisos, QTY_AVISOS);
 	cliente_altaForzada(50, "Jorge", "Jesus", "20358638628", clientes, QTY_CLIENTES);
 	cliente_altaForzada(51, "Maria", "Damonte", "27229381828", clientes, QTY_CLIENTES);
 	cliente_altaForzada(52, "Fernando", "Fleitas", "20235838321", clientes, QTY_CLIENTES);
@@ -59,7 +61,7 @@ int main(void) {
 			case 4:
 				if(cliente_checkActiveClientes(clientes, QTY_CLIENTES) == 0)
 				{
-					cliente_printClientes(clientes, QTY_CLIENTES);
+					aviso_createAviso(avisos, QTY_AVISOS, clientes, QTY_CLIENTES);
 				}
 				else
 				{

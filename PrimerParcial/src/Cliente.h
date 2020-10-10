@@ -1,7 +1,7 @@
 /*
- * cliente.h
+ * Cliente.h
  *
- *  Created on: 30 sep. 2020
+ *  Created on: 10 oct. 2020
  *      Author: marcos
  */
 
@@ -86,3 +86,4 @@ int cliente_printClientes(Cliente* list, int length);
 int cliente_altaForzada(int idCliente, char* nombre, char* apellido, char* cuit,Cliente* list, int len);
 
 #endif /* CLIENTE_H_ */
+

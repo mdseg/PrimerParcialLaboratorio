@@ -15,6 +15,8 @@
 #define ATTEMPTS 5
 #define ID_MIN 0
 #define ID_MAX 1000
+#define RUBRO_MIN 1
+#define RUBRO_MAX 30
 #define UP 1
 #define DOWN 0
 #define LONG_NAME 50
@@ -74,12 +76,12 @@ struct
  int idAviso;
  int rubro;
  char contenido[LONG_NAME];
- int estado;
+ int isActive;
  int idCliente;
  int isEmpty;
 }typedef Aviso;
 
-int aviso_createAviso(Aviso* list, int len);
+int aviso_createAviso(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, int lenClientes);
 int aviso_createAvisoReport(Aviso* list, int len);
 int aviso_initAvisos(Aviso* list, int len);
 int aviso_checkActiveAvisos(Aviso* list, int len);

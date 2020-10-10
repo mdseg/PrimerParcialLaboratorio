@@ -421,4 +421,3 @@ if(cliente_searchFreeIndex(list, &index, len) == 0)
 }
 	return retorno;
 }
-
