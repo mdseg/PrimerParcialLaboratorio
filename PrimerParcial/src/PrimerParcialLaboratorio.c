@@ -31,6 +31,10 @@ int main(void) {
 	cliente_altaForzada(52, "Fernando", "Fleitas", "20235838321", clientes, QTY_CLIENTES);
 
 	aviso_altaForzada(50, 1, "Aviso de prueba", TRUE, 50, avisos, QTY_AVISOS);
+	aviso_altaForzada(60, 2, "Se vende auto. 4 puertas con excelente vista a la calle", TRUE, 50, avisos, QTY_AVISOS);
+	aviso_altaForzada(70, 3, "Pinto casas a domicilio", TRUE, 51, avisos, QTY_AVISOS);
+	aviso_altaForzada(71, 3, "Plomero y gasista", TRUE, 51, avisos, QTY_AVISOS);
+	aviso_altaForzada(71, 3, "Jardinero", TRUE, 51, avisos, QTY_AVISOS);
 
 	do
 	{
@@ -119,6 +123,10 @@ int main(void) {
 							switch (opSecundario)
 							{
 								case 1:
+									if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0)
+									{
+										informe_findClienteMoreAvisos(clientes, QTY_CLIENTES, avisos, QTY_AVISOS);
+									}
 									break;
 								case 2:
 									if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0)

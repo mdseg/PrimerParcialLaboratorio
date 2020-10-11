@@ -38,22 +38,20 @@ int informe_printAllClientes(Cliente* listClientes, int lenClientes, Aviso* list
 	   lenAvisos > 0 &&
 	   listClientes != NULL &&
 	   lenClientes > 0)
+	{
+		for (i = 0; i < lenClientes;i++)
 		{
-			for (i = 0; i < lenClientes;i++)
+			if(listClientes[i].isEmpty == FALSE)
 			{
-				if(listClientes[i].isEmpty == FALSE)
+				bufferCantidad = informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, listClientes[i].idCliente);
+				if(bufferCantidad != -1)
 				{
-					bufferCantidad = informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, listClientes[i].idCliente);
-					if(bufferCantidad != -1)
-					{
-						printf(PRINT_ONE_CLIENTE_ADD_AVISO,listClientes[i].idCliente,listClientes[i].nombre,listClientes[i].apellido,listClientes[i].cuit,bufferCantidad);
-					}
+					printf(PRINT_ONE_CLIENTE_ADD_AVISO,listClientes[i].idCliente,listClientes[i].nombre,listClientes[i].apellido,listClientes[i].cuit,bufferCantidad);
 				}
 			}
-			retorno = 0;
 		}
-		return retorno;
-
+		retorno = 0;
+	}
 	return retorno;
 }
 int informe_countAvisosPausados(Aviso* listAvisos, int lenAvisos)
@@ -86,3 +84,40 @@ int informe_printCountAvisosPausados(Aviso* listAvisos, int lenAvisos)
 
 	return retorno;
 }
+int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos)
+{
+	int retorno = -1;
+	int i = 0;
+	Cliente clienteMayorAvisos;
+	int banderaPrimero = TRUE;
+	int bufferNumeroAvisos;
+	if(listAvisos != NULL &&
+	   lenAvisos > 0 &&
+	   listClientes != NULL &&
+	   lenClientes > 0)
+	{
+		for (i = 0; i < lenClientes;i++)
+		{
+			if(listClientes[i].isEmpty == FALSE)
+			{
+				bufferNumeroAvisos = informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, listClientes[i].idCliente);
+				if(banderaPrimero == TRUE)
+				{
+					clienteMayorAvisos = listClientes[i];
+					banderaPrimero = FALSE;
+				}
+				else
+				{
+					if(bufferNumeroAvisos > informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, clienteMayorAvisos.idCliente))
+					{
+						clienteMayorAvisos = listClientes[i];
+					}
+				}
+			}
+		}
+		printf(PRINT_ONE_CLIENTE_ADD_AVISO,clienteMayorAvisos.idCliente,clienteMayorAvisos.nombre,clienteMayorAvisos.apellido,clienteMayorAvisos.cuit,informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, clienteMayorAvisos.idCliente));
+		retorno = 0;
+	}
+	return retorno;
+}
+
