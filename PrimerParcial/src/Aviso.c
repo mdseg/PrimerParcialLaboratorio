@@ -50,7 +50,7 @@ int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, in
 	int index;
 	int flagCarga = FALSE;
 	int bufferRubro;
-	char bufferContenido[LONG_CONTENIDO];
+	char bufferContenido[LONG_AVISO];
 	int bufferIdCliente;
 	Aviso bufferAviso;
 
@@ -122,7 +122,7 @@ int aviso_createAviso(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, i
 	int retorno = -1;
 	int id;
 	int rubro;
-	char contenido[LONG_NAME];
+	char contenido[LONG_AVISO];
 	int idCliente;
 	int index;
 	if(aviso_searchFreeIndex(listAvisos, &index, lenAvisos) == 0 &&
@@ -402,25 +402,41 @@ int aviso_createAvisoReport(Aviso* list, int lenAvisos)
 	return retorno;
 }
 //Order TRUE activar FALSE desactivar
-int aviso_changeStatus(Aviso* list, int lenAvisos, int id, int order)
+
+int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, int lenClientes, int id, int order)
 {
 	int retorno = -1;
-	int bufferIndex = aviso_findAvisoById(list, lenAvisos, id);
-	if( list != NULL && lenAvisos > 0 &&
+	int bufferIndex = aviso_findAvisoById(listAvisos, lenAvisos, id);
+	int idCliente;
+	int op;
+	if( listAvisos != NULL && lenAvisos > 0 &&
 		id > 0 && bufferIndex != -1
-		&& list[bufferIndex].isEmpty == FALSE)
+		&& listAvisos[bufferIndex].isEmpty == FALSE)
 	{
-		if(order == PAUSAR)
+		idCliente = listAvisos[bufferIndex].idCliente;
+		cliente_printOneCliente(listClientes, lenClientes, idCliente);
+
+		if(utn_getInt(&op, "¿Desea confirmar la operación? Ingrese 1 para confirmar y 2 para cancelar.\n", "Error", 1, 2, ATTEMPTS) == 0)
 		{
-			list[bufferIndex].isActive = FALSE;
-			retorno = 0;
-			printf(PAUSE_AVISO_SUCCESS,list[bufferIndex].idAviso);
-		}
-		else
-		{
-			list[bufferIndex].isActive = TRUE;
-			retorno = 0;
-			printf(RESUME_AVISO_SUCCESS,list[bufferIndex].idAviso);
+			if(op == 1)
+			{
+				if(order == PAUSAR)
+				{
+					listAvisos[bufferIndex].isActive = FALSE;
+					retorno = 0;
+					printf(PAUSE_AVISO_SUCCESS,listAvisos[bufferIndex].idAviso);
+				}
+				else
+				{
+					listAvisos[bufferIndex].isActive = TRUE;
+					retorno = 0;
+					printf(RESUME_AVISO_SUCCESS,listAvisos[bufferIndex].idAviso);
+				}
+			}
+			else
+			{
+				printf("Operación cancelada por el usuario");
+			}
 		}
 
 	}
@@ -431,3 +447,21 @@ int aviso_changeStatus(Aviso* list, int lenAvisos, int id, int order)
 
 	return retorno;
 }
+int aviso_altaForzada(int idAviso, int rubro, char* contenido, int isActive, int idCliente, Aviso* list, int lenAviso)
+{
+	int retorno = -1;
+	int index;
+	if(aviso_searchFreeIndex(list, &index, lenAviso) == 0)
+	{
+		Aviso aviso;
+		aviso.idAviso= idAviso;
+		aviso.rubro = rubro;
+		strcpy(aviso.contenido,contenido);
+		aviso.isActive = isActive;
+		aviso.idCliente = idCliente;
+		aviso.isEmpty = FALSE;
+		list[index] = aviso;
+	}
+	return retorno;
+}
+

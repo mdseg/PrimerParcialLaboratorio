@@ -22,10 +22,7 @@
 #define LONG_NAME 50
 #define LONG_CONTENIDO 51
 #define QTY_AVISOS 100
-#define DATOINT_MIN 0
-#define DATOINT_MAX 1000
-#define FLOTANTE_MIN 0
-#define FLOTANTE_MAX 100000
+#define LONG_AVISO 65
 #define PAUSAR 1
 #define RENAUDAR 0
 
@@ -71,6 +68,8 @@
 #define ENTERING_CREATE_AVISO "Ingresando al sector de altas...\n"
 #define ENTERING_MODIFY_AVISO "Ingresando al sector de modificaciones...\n"
 #define ENTERING_REMOVE_AVISO "Ingresando al sector de bajas...\n"
+#define ENTERING_PAUSE_AVISO "Eligió la opción de pausar un aviso...\n"
+#define ENTERING_RESUME_AVISO "Eligió la opción de renaudar un aviso...\n"
 
 
 #define ERROR_NOT_AVAILABLE "Debe ingresar al menos un registro para utilizar esta funcionalidad.\n"
@@ -95,5 +94,7 @@ int aviso_findAvisoById(Aviso* list, int len,int id);
 int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, int lenClientes);
 int aviso_unsuscribeAviso(Aviso* list, int len);
 int aviso_printAvisos(Aviso* list, int length);
-int aviso_changeStatus(Aviso* list, int lenAvisos, int id, int order);
+int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, int lenClientes, int id, int order);
+int aviso_altaForzada(int idAviso, int rubro, char* contenido, int isActive, int idCliente, Aviso* list, int lenAviso);
+
 #endif /* AVISO_H_ */

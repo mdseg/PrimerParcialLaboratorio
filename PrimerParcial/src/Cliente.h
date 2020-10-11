@@ -24,7 +24,7 @@
 
 #define MAIN_MENU "\n-------Sistema de Registro de Clientes y Avisos ----------\nElija una de estas opciones:\n1-Alta de Cliente\n2-Modificar datos de cliente\n3-Baja de Cliente\n4-Publicar\n5-Pausar publicación\n6-Renaudar publicación\n7-Imprimir Clientes\n8-Informar\n9-SALIR\n"
 #define MENU_MODIFY "-------Menu de modificación de Clientes----------\nSeleccione el campo a modificar:\n1-Nombre\n2-Apellido\n3-CUIT\n4-Volver al menú principal\n"
-#define MENU_REPORT "-------Menu de reporte----------\nSeleccione el tipo de informe deseado:\n1-Listado de los empleados ordenados alfabéticamente por Name y datoInt.\n2- Función Personalizada\n3-Volver al menú principal\n"
+#define MENU_REPORT "-------Menu de reporte----------\nSeleccione el tipo de informe deseado:\n1-Cliente con más avisos\n2- Cantidad de avisos pausados\n3-Rubro con mas avisos\n4-Volver al menú anterior\n"
 #define MENU_ORDER "Seleccione el orden alfabético del informe:\n1-Ascendente\n2-Descendente\n"
 #define MENU_SELECT_ERROR "Por favor, elija una opción valida.\n"
 
@@ -84,6 +84,6 @@ int cliente_modifyCliente(Cliente* list, int len);
 int cliente_unsuscribeCliente(Cliente* list, int len);
 int cliente_printClientes(Cliente* list, int length);
 int cliente_altaForzada(int idCliente, char* nombre, char* apellido, char* cuit,Cliente* list, int len);
-
+int cliente_printOneCliente(Cliente* list, int len, int idCliente);
 #endif /* CLIENTE_H_ */
 

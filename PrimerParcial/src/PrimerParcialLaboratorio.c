@@ -15,9 +15,11 @@
 #include "Cliente.h"
 #include "Aviso.h"
 #include <ctype.h>
+#include "Informe.h"
 
 int main(void) {
 	int op;
+	int opSecundario;
 	Cliente clientes[QTY_CLIENTES];
 	Aviso avisos[QTY_AVISOS];
 
@@ -28,6 +30,7 @@ int main(void) {
 	cliente_altaForzada(51, "Maria", "Damonte", "27229381828", clientes, QTY_CLIENTES);
 	cliente_altaForzada(52, "Fernando", "Fleitas", "20235838321", clientes, QTY_CLIENTES);
 
+	aviso_altaForzada(50, 1, "Aviso de prueba", TRUE, 50, avisos, QTY_AVISOS);
 
 	do
 	{
@@ -63,6 +66,7 @@ int main(void) {
 			case 4:
 				if(cliente_checkActiveClientes(clientes, QTY_CLIENTES) == 0)
 				{
+					printf(ENTERING_MODIFY_AVISO);
 					aviso_createAviso(avisos, QTY_AVISOS, clientes, QTY_CLIENTES);
 				}
 				else
@@ -74,7 +78,8 @@ int main(void) {
 				if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0 &&
 					utn_getInt(&idElegida, INPUT_IDAVISO, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0)
 				{
-					aviso_changeStatus(avisos, QTY_AVISOS, idElegida, TRUE);
+					printf(ENTERING_PAUSE_AVISO);
+					aviso_changeStatus(avisos, QTY_AVISOS,clientes,QTY_CLIENTES, idElegida, TRUE);
 
 				}
 				else
@@ -86,13 +91,55 @@ int main(void) {
 				if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0 &&
 					utn_getInt(&idElegida, INPUT_IDAVISO, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0)
 				{
-					aviso_changeStatus(avisos, QTY_AVISOS, idElegida, FALSE);
+					printf(ENTERING_RESUME_AVISO);
+					aviso_changeStatus(avisos, QTY_AVISOS,clientes,QTY_CLIENTES, idElegida, FALSE);
+				}
+				else
+				{
+					printf(ERROR_NOT_AVAILABLE);
+				}
+				break;
+			case 7:
+				if(cliente_checkActiveClientes(clientes, QTY_CLIENTES) == 0)
+				{
+					printf(ENTERING_CLIENTE_LIST);
+					informe_printAllClientes(clientes, QTY_CLIENTES, avisos, QTY_AVISOS);
+				}
+				else
+				{
+					printf(ERROR_NOT_AVAILABLE);
+				}
+				break;
+			case 8:
+				if(cliente_checkActiveClientes(clientes, QTY_CLIENTES) == 0)
+				{
+					do{
+						if(utn_getInt(&opSecundario, MENU_REPORT, MENU_SELECT_ERROR, 1, 4, ATTEMPTS) == 0)
+						{
+							switch (opSecundario)
+							{
+								case 1:
+									break;
+								case 2:
+									if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0)
+									{
+										informe_printCountAvisosPausados(avisos, QTY_AVISOS);
+									}
+									break;
+								case 3:
+									break;
+							}
+						}
+					}
+					while (op != 4);
+
 
 				}
 				else
 				{
 					printf(ERROR_NOT_AVAILABLE);
 				}
+				break;
 				break;
 			case 9:
 				printf(EXIT_PROGRAM);

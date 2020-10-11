@@ -27,7 +27,6 @@ int cliente_unsuscribeCliente(Cliente* list, int len)
 {
 	int retorno = -1;
 	int scanId;
-	printf(ENTERING_REMOVE_CLIENTE);
 	if(cliente_checkActiveClientes(list, len) == 0)
 	{
 		if(utn_getInt(&scanId, INPUT_ID, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 &&
@@ -91,9 +90,9 @@ int cliente_modifyCliente(Cliente* list, int len)
 						if(utn_getName(INPUT_APELLIDO,ERROR_GENERIC,bufferApellido, ATTEMPTS, LONG_NAME) == 0)
 						{
 							utn_upperFirstCharArray(bufferApellido);
-							strcpy(bufferCliente.nombre,bufferApellido);
+							strcpy(bufferCliente.apellido,bufferApellido);
 							flagCarga = TRUE;
-							printf(MODIFY_NAME_SUCCESS);
+							printf(MODIFY_APELLIDO_SUCCESS);
 						}
 						else
 						{
@@ -249,6 +248,7 @@ int cliente_findClienteById(Cliente* list, int len,int id)
 				if(list[i].idCliente == id)
 				{
 					retorno = i;
+					break;
 				}
 			}
 		}
@@ -409,15 +409,27 @@ int cliente_altaForzada(int idCliente, char* nombre, char* apellido, char* cuit,
 {
 	int retorno = -1;
 	int index;
-if(cliente_searchFreeIndex(list, &index, len) == 0)
-{
-	Cliente cliente;
-	cliente.idCliente = idCliente;
-	strcpy(cliente.nombre,nombre);
-	strcpy(cliente.apellido,apellido);
-	strcpy(cliente.cuit,cuit);
-	list[index] = cliente;
-
+	if(cliente_searchFreeIndex(list, &index, len) == 0)
+	{
+		Cliente cliente;
+		cliente.idCliente = idCliente;
+		strcpy(cliente.nombre,nombre);
+		strcpy(cliente.apellido,apellido);
+		strcpy(cliente.cuit,cuit);
+		list[index] = cliente;
+	}
+	return retorno;
 }
+int cliente_printOneCliente(Cliente* list, int len, int id)
+{
+	int retorno = -1;
+	Cliente clienteEncontrado;
+	int indexCliente;
+	indexCliente = cliente_findClienteById(list, len, id);
+	if(indexCliente != -1)
+	{
+		clienteEncontrado = list[indexCliente];
+		printf(PRINT_ONE_REGISTRY,clienteEncontrado.idCliente,clienteEncontrado.nombre,clienteEncontrado.apellido,clienteEncontrado.cuit);
+	}
 	return retorno;
 }
