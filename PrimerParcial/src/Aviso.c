@@ -401,4 +401,33 @@ int aviso_createAvisoReport(Aviso* list, int lenAvisos)
 
 	return retorno;
 }
+//Order TRUE activar FALSE desactivar
+int aviso_changeStatus(Aviso* list, int lenAvisos, int id, int order)
+{
+	int retorno = -1;
+	int bufferIndex = aviso_findAvisoById(list, lenAvisos, id);
+	if( list != NULL && lenAvisos > 0 &&
+		id > 0 && bufferIndex != -1
+		&& list[bufferIndex].isEmpty == FALSE)
+	{
+		if(order == PAUSAR)
+		{
+			list[bufferIndex].isActive = FALSE;
+			retorno = 0;
+			printf(PAUSE_AVISO_SUCCESS,list[bufferIndex].idAviso);
+		}
+		else
+		{
+			list[bufferIndex].isActive = TRUE;
+			retorno = 0;
+			printf(RESUME_AVISO_SUCCESS,list[bufferIndex].idAviso);
+		}
 
+	}
+	else
+	{
+		printf(CHANGE_AVISO_ERROR);
+	}
+
+	return retorno;
+}

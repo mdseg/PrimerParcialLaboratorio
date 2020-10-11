@@ -26,6 +26,8 @@
 #define DATOINT_MAX 1000
 #define FLOTANTE_MIN 0
 #define FLOTANTE_MAX 100000
+#define PAUSAR 1
+#define RENAUDAR 0
 
 //#define MAIN_MENU "\n-------Sistema de Registro de Avisos y Avisos ----------\nElija una de estas opciones:\n1-Alta de Aviso\n2-Modificar datos de aviso\n3-Baja de Aviso\n4-Publicar\n5-Pausar publicación\n6-Renaudar publicación\n7-Imprimir Avisos\n8-Informar\n9-SALIR\n"
 #define MENU_MODIFY_AVISO "-------Menu de modificación de Avisos----------\nSeleccione el campo a modificar:\n1-Nombre\n2-Apellido\n3-CUIT\n4-Volver al menú principal\n"
@@ -54,6 +56,10 @@
 #define MODIFY_CONTENIDO_SUCCESS "Contenido del aviso modificado.\n"
 #define MODIFY_CONTENIDO_ERROR "Error al modificar el contenido del aviso.\n"
 
+//Pause
+#define PAUSE_AVISO_SUCCESS "Pausado el aviso con Id: %d.\n"
+#define CHANGE_AVISO_ERROR "No se ha encontrado un aviso con ese Id.\n"
+#define RESUME_AVISO_SUCCESS "Reanudado el aviso con Id: %d.\n"
 
 //Informe
 #define REPORT_AVISO_SUCCESS_FINISH "----Finalizado el informe----\n"
@@ -89,5 +95,5 @@ int aviso_findAvisoById(Aviso* list, int len,int id);
 int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, int lenClientes);
 int aviso_unsuscribeAviso(Aviso* list, int len);
 int aviso_printAvisos(Aviso* list, int length);
-
+int aviso_changeStatus(Aviso* list, int lenAvisos, int id, int order);
 #endif /* AVISO_H_ */

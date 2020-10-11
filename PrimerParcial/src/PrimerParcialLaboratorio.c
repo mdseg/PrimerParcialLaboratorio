@@ -20,6 +20,8 @@ int main(void) {
 	int op;
 	Cliente clientes[QTY_CLIENTES];
 	Aviso avisos[QTY_AVISOS];
+
+	int idElegida;
 	cliente_initClientes(clientes, QTY_CLIENTES);
 	aviso_initAvisos(avisos, QTY_AVISOS);
 	cliente_altaForzada(50, "Jorge", "Jesus", "20358638628", clientes, QTY_CLIENTES);
@@ -29,7 +31,7 @@ int main(void) {
 
 	do
 	{
-		utn_getInt(&op, MAIN_MENU, ERROR_GENERIC, 1, 5, ATTEMPTS);
+		utn_getInt(&op, MAIN_MENU, ERROR_GENERIC, 1, 9, ATTEMPTS);
 		switch(op)
 		{
 			case 1:
@@ -62,6 +64,30 @@ int main(void) {
 				if(cliente_checkActiveClientes(clientes, QTY_CLIENTES) == 0)
 				{
 					aviso_createAviso(avisos, QTY_AVISOS, clientes, QTY_CLIENTES);
+				}
+				else
+				{
+					printf(ERROR_NOT_AVAILABLE);
+				}
+				break;
+			case 5:
+				if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0 &&
+					utn_getInt(&idElegida, INPUT_IDAVISO, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0)
+				{
+					aviso_changeStatus(avisos, QTY_AVISOS, idElegida, TRUE);
+
+				}
+				else
+				{
+					printf(ERROR_NOT_AVAILABLE);
+				}
+				break;
+			case 6:
+				if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0 &&
+					utn_getInt(&idElegida, INPUT_IDAVISO, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0)
+				{
+					aviso_changeStatus(avisos, QTY_AVISOS, idElegida, FALSE);
+
 				}
 				else
 				{
