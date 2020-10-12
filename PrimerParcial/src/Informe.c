@@ -18,7 +18,7 @@ static int auxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, A
 static int auxiliar_sortByCantAvisos(Auxiliar* list, int lenClientes, int order);
 static int auxiliar_isInArray(Auxiliar* listAuxiliar, int lenAuxiliar, int inputInt);
 static int auxiliar_uploadRubros(Auxiliar* listRubros, int lenRubros , Aviso* listAvisos, int lenAvisos);
-
+static int auxiliar_calculateNumAvisosRubro(Aviso* listAvisos, int lenAvisos, Auxiliar* listAuxiliar, int lenAuxiliar);
 int informe_calculateNumAvisosOneCliente(Aviso* listAvisos, int lenAvisos, int idCliente)
 {
 	int retorno = -1;
@@ -258,10 +258,9 @@ int informe_calculateNumAvisosOneRubro(Aviso* listAvisos, int lenAvisos, int rub
 int informe_findRubroMoreAvisos(Aviso* listAvisos, int lenAvisos)
 {
 	int retorno = -1;
-	//int i = 0;
-	//int index;
+	int i = 0;
 	Auxiliar listaRubros[50];
-	//int maxnumAvisos;
+	int maxnumAvisos;
 	if(listAvisos != NULL &&
 	   lenAvisos > 0
 	   )
@@ -270,10 +269,17 @@ int informe_findRubroMoreAvisos(Aviso* listAvisos, int lenAvisos)
 		//Cargar los rubros en la lista auxiliar verificando que no se repitan
 		auxiliar_uploadRubros(listaRubros,50,listAvisos,lenAvisos);
 		//Calcular la cantidad de avisos para cada rubro
-
+		auxiliar_calculateNumAvisosRubro(listAvisos, lenAvisos, listaRubros, 50);
 		//Ordernar de forma descendente
+		auxiliar_sortByCantAvisos(listaRubros, 50, UP);
 		//Imprimir los mayores
-
+		maxnumAvisos = listaRubros[0].cantidadAvisos;
+		printf("----------Listado de Rubros con mayores cantidad de avisos--------------\n");
+				while(listaRubros[i].cantidadAvisos == maxnumAvisos)
+				{
+					printf(HIGH_AVISOS_RUBRO,listaRubros[i].id);
+					i++;
+				}
 		retorno = 0;
 	}
 	return retorno;
@@ -283,7 +289,6 @@ static int auxiliar_uploadRubros(Auxiliar* listRubros, int lenRubros , Aviso* li
 	int retorno = -1;
 	int i;
 	int j = 0;
-	Aviso prueba;
 	if(listRubros != NULL &&
 		lenRubros > 0 &&
 	    listAvisos != NULL &&
@@ -291,7 +296,6 @@ static int auxiliar_uploadRubros(Auxiliar* listRubros, int lenRubros , Aviso* li
 	{
 		for(i = 0;i < lenAvisos;i++)
 		{
-			prueba = listAvisos[i];
 			if(listAvisos[i].isEmpty == 0 && auxiliar_isInArray(listRubros,lenRubros,listAvisos[i].rubro) == 0)
 			{
 				listRubros[j].id = listAvisos[i].rubro;
@@ -315,6 +319,27 @@ static int auxiliar_isInArray(Auxiliar* listAuxiliar, int lenAuxiliar, int input
 			{
 				retorno = 1;
 				break;
+			}
+		}
+	}
+	return retorno;
+}
+static int auxiliar_calculateNumAvisosRubro(Aviso* listAvisos, int lenAvisos, Auxiliar* listAuxiliar, int lenAuxiliar)
+{
+	int retorno = -1;
+	int i;
+	int bufferCantAvisos;
+	if(listAvisos != NULL &&
+		   lenAvisos > 0
+		)
+	{
+		for (i = 0;i < lenAuxiliar;i++)
+		{
+			if(listAuxiliar[i].isEmpty == FALSE)
+			{
+				bufferCantAvisos = informe_calculateNumAvisosOneRubro(listAvisos, lenAvisos, listAuxiliar[i].id);
+				listAuxiliar[i].cantidadAvisos = bufferCantAvisos;
+
 			}
 		}
 	}
