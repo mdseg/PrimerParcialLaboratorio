@@ -13,14 +13,14 @@
 #define ATTEMPTS 5
 #define ID_MIN 0
 #define ID_MAX 1000
-#define UP 1
-#define DOWN 0
 #define LONG_NAME 50
 #define QTY_CLIENTES 100
 #define DATOINT_MIN 0
 #define DATOINT_MAX 1000
 #define FLOTANTE_MIN 0
 #define FLOTANTE_MAX 100000
+#define UP 1
+#define DOWN 0
 
 #define MAIN_MENU "\n-------Sistema de Registro de Clientes y Avisos ----------\nElija una de estas opciones:\n1-Alta de Cliente\n2-Modificar datos de cliente\n3-Baja de Cliente\n4-Publicar\n5-Pausar publicación\n6-Renaudar publicación\n7-Imprimir Clientes\n8-Informar\n9-SALIR\n"
 #define MENU_MODIFY "-------Menu de modificación de Clientes----------\nSeleccione el campo a modificar:\n1-Nombre\n2-Apellido\n3-CUIT\n4-Volver al menú principal\n"
@@ -55,7 +55,8 @@
 #define REPORT_CLIENTE_ERROR "\nError al realizar el informe.\n"
 #define DELETE_CLIENTE_SUCCESS "\nCliente dado de baja correctamente.\n"
 #define DELETE_CLIENTE_ERROR "No existe un cliente con ese ID.\n"
-
+#define DELETE_CLIENTE_CONFIRM "¿Desea eliminar a este cliente? Ingrese 1 para confirmar o 2 para cancelar.\n"
+#define DELETE_CLIENTE_CANCEL "\nSe ha cancelado la eliminación del cliente.\n"
 //Acceso
 #define ENTERING_CREATE_CLIENTE "Ingresando al sector de altas...\n"
 #define ENTERING_MODIFY_CLIENTE "Ingresando al sector de modificaciones...\n"
@@ -81,7 +82,7 @@ int cliente_initClientes(Cliente* list, int len);
 int cliente_checkActiveClientes(Cliente* list, int len);
 int cliente_findClienteById(Cliente* list, int len,int id);
 int cliente_modifyCliente(Cliente* list, int len);
-int cliente_unsuscribeCliente(Cliente* list, int len);
+int cliente_unsuscribeCliente(Cliente* list, int len, int idCliente);
 int cliente_printClientes(Cliente* list, int length);
 int cliente_altaForzada(int idCliente, char* nombre, char* apellido, char* cuit,Cliente* list, int len);
 int cliente_printOneCliente(Cliente* list, int len, int idCliente);

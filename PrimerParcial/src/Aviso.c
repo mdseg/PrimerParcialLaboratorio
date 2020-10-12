@@ -464,4 +464,73 @@ int aviso_altaForzada(int idAviso, int rubro, char* contenido, int isActive, int
 	}
 	return retorno;
 }
+int aviso_printAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente)
+{
+	int retorno = -1;
+	int i;
+	int cantidadAvisosImpresos = 0;
+	char bufferEstado[LONG_NAME];
+	if(listAvisos != NULL && lenAvisos > 0)
+	{
+		printf(PRINT_REGISTRY_BY_ID_TOP,idCliente);
+		for (i = 0; i < lenAvisos;i++)
+			{
+				if(listAvisos[i].isEmpty == FALSE && listAvisos[i].idCliente == idCliente)
+				{
+					if(listAvisos[i].isActive == TRUE)
+					{
+						strcpy(bufferEstado,"Activa");
+					}
+					else
+					{
+						strcpy(bufferEstado,"Pausada");
+					}
+					printf(PRINT_ONE_REGISTRY_BY_ID,listAvisos[i].idAviso, listAvisos[i].contenido,bufferEstado);
+					cantidadAvisosImpresos++;
+				}
+			}
+		if (cantidadAvisosImpresos == 0)
+		{
+			printf(PRINT_REGISTRY_NO_RESULTS);
+		}
+		retorno = 0;
+	}
+
+	return retorno;
+}
+int aviso_deleteAllAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente)
+{
+	int retorno = -1;
+	int i;
+	int cantidadAvisosBorrados = 0;
+	if(listAvisos != NULL && lenAvisos > 0 && idCliente > 0)
+		{
+			for (i = 0; i < lenAvisos;i++)
+				{
+					if(listAvisos[i].isEmpty == FALSE && listAvisos[i].idCliente == idCliente)
+					{
+						listAvisos[i].isEmpty = TRUE;
+						cantidadAvisosBorrados++;
+					}
+				}
+			if (cantidadAvisosBorrados == 0)
+			{
+				printf(DELETE_REGISTRY_NO_RESULTS);
+			}
+			else
+			{
+				printf(DELETE_REGISTRY_RESULTS,cantidadAvisosBorrados);
+			}
+			retorno = 0;
+		}
+	return retorno;
+}
+/*
+ * Se me ocurre hacer 3 funciones:
+1. La impresión de las publicaciones (en informes)
+2. El borrado del cliente (en cliente)
+3. El borrado de las publicaciones (en publicaciones)
+
+Llamarlo todo desde el main
+ */
 

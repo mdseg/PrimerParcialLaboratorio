@@ -23,17 +23,27 @@ static int cliente_searchFreeIndex(Cliente* list,int* pIndex, int len);
 * \param flagFirstCliente int it's a pointer that indicates if a new cliented has been created.
 * \return int Return (-1) if Error - (0) if Ok
 */
-int cliente_unsuscribeCliente(Cliente* list, int len)
+int cliente_unsuscribeCliente(Cliente* list, int len, int idCliente)
 {
 	int retorno = -1;
-	int scanId;
+	int scanOp;
 	if(cliente_checkActiveClientes(list, len) == 0)
 	{
-		if(utn_getInt(&scanId, INPUT_ID, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 &&
-				cliente_removeCliente(list, QTY_CLIENTES, scanId) == 0)
+		if(utn_getInt(&scanOp, DELETE_CLIENTE_CONFIRM, ERROR_GENERIC, 1, 2, ATTEMPTS) == 0
+			)
 		{
-			printf(DELETE_CLIENTE_SUCCESS);
-			retorno = 0;
+			if(scanOp == 1)
+			{
+				cliente_removeCliente(list, QTY_CLIENTES, idCliente);
+				printf(DELETE_CLIENTE_SUCCESS);
+				retorno = 1;
+			}
+			else
+			{
+				printf(DELETE_CLIENTE_CANCEL);
+				retorno = 0;
+			}
+
 		}
 		else
 		{

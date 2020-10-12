@@ -32,9 +32,11 @@ int main(void) {
 
 	aviso_altaForzada(50, 1, "Aviso de prueba", TRUE, 50, avisos, QTY_AVISOS);
 	aviso_altaForzada(60, 2, "Se vende auto. 4 puertas con excelente vista a la calle", TRUE, 50, avisos, QTY_AVISOS);
-	aviso_altaForzada(70, 3, "Pinto casas a domicilio", TRUE, 51, avisos, QTY_AVISOS);
+	aviso_altaForzada(70, 3, "Pinto casas a domicilio", TRUE, 50, avisos, QTY_AVISOS);
 	aviso_altaForzada(71, 3, "Plomero y gasista", TRUE, 51, avisos, QTY_AVISOS);
-	aviso_altaForzada(71, 3, "Jardinero", TRUE, 51, avisos, QTY_AVISOS);
+	aviso_altaForzada(72, 3, "Enfermero", TRUE, 51, avisos, QTY_AVISOS);
+	aviso_altaForzada(73, 3, "Alquilo balcones", TRUE, 51, avisos, QTY_AVISOS);
+
 
 	do
 	{
@@ -60,7 +62,14 @@ int main(void) {
 				if(cliente_checkActiveClientes(clientes, QTY_CLIENTES) == 0)
 				{
 					printf(ENTERING_REMOVE_CLIENTE);
-					cliente_unsuscribeCliente(clientes, QTY_CLIENTES);
+					if(utn_getInt(&opSecundario, INPUT_ID, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 &&
+						aviso_printAvisosByIdCliente(avisos, QTY_AVISOS, opSecundario) == 0)
+					{
+						if(cliente_unsuscribeCliente(clientes, QTY_CLIENTES,opSecundario) == 1)
+						{
+							aviso_deleteAllAvisosByIdCliente(avisos, QTY_AVISOS, opSecundario);
+						}
+					}
 				}
 				else
 				{
@@ -135,6 +144,10 @@ int main(void) {
 									}
 									break;
 								case 3:
+									if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0)
+									{
+										informe_calculateRubroMasAvisos(avisos, QTY_AVISOS);
+									}
 									break;
 							}
 						}

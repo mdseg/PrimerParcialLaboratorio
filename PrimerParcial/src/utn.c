@@ -7,6 +7,8 @@
 #define LIMITE_BUFFER_STRING 4096
 #define TRUE 1
 #define FALSE 0
+#define UP 1
+#define DOWN 0
 #define LONG_NAME 50
 
 static int utn_verifyNumArray(char* array);
@@ -543,9 +545,10 @@ int utn_ordenarArrayIntDesc(int* pArray, int limite)
  * \brief ordena un array de enteros ASC
  * \param pArray es el puntero al array a ser ordenado.
  * \pram size Es la longitud del array.
+ * \param order
  * \return 0 si Ok o -1 para indicar un error.
  */
-int utn_ordenarArrayIntAsc(int* pArray, int limite)
+int utn_ordenarArrayInt(int* pArray, int limite, int order)
 {
 	int flagSwap;
 	int i;
@@ -560,7 +563,10 @@ int utn_ordenarArrayIntAsc(int* pArray, int limite)
 			flagSwap=0;
 			for(i=0; i<nuevoLimite;i++)
 			{
-				if(pArray[i] > pArray[i+1])
+				if((order == UP && pArray[i] > pArray[i+1])
+					||
+				    (order == DOWN && pArray[i] < pArray[i+1])
+					)
 				{
 					flagSwap=1;
 					buffer = pArray[i];
@@ -727,7 +733,6 @@ int utn_lowerCharArray(char pArray[])
 static int utn_isValidCuit(char* array)
 {
 	int retorno = 0;
-	int i;
 
 	if(array != NULL && utn_verifyNumArray(array) == 1 && utn_verifyLengthArray(array) == 11)
 	{
@@ -865,5 +870,34 @@ int utn_getString(char* message, char* errorMessage, char* pResult, int attemps,
 		}
 		while(attemps > 0);
 	}
+	return retorno;
+}
+int utn_isInArrayInt(int* array, int lenArray, int inputInt)
+{
+	int retorno = 0;
+	int i;
+	for (i = 0;i < lenArray;i++)
+	{
+		if(array[i] == inputInt)
+		{
+			retorno = 1;
+			break;
+		}
+	}
+	return retorno;
+}
+int utn_initIntArray(int* array,int lenArray, int initValue)
+{
+	int retorno = -1;
+	int i;
+	if(array != NULL & lenArray > 0)
+	{
+		for (i = 0;i < lenArray;i++)
+			{
+				array[i] = initValue;
+			}
+		retorno = 0;
+	}
+
 	return retorno;
 }

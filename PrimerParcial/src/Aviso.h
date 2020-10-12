@@ -17,14 +17,13 @@
 #define ID_MAX 1000
 #define RUBRO_MIN 1
 #define RUBRO_MAX 30
-#define UP 1
-#define DOWN 0
 #define LONG_NAME 50
-#define LONG_CONTENIDO 51
 #define QTY_AVISOS 100
 #define LONG_AVISO 65
 #define PAUSAR 1
 #define RENAUDAR 0
+#define UP 1
+#define DOWN 0
 
 //#define MAIN_MENU "\n-------Sistema de Registro de Avisos y Avisos ----------\nElija una de estas opciones:\n1-Alta de Aviso\n2-Modificar datos de aviso\n3-Baja de Aviso\n4-Publicar\n5-Pausar publicación\n6-Renaudar publicación\n7-Imprimir Avisos\n8-Informar\n9-SALIR\n"
 #define MENU_MODIFY_AVISO "-------Menu de modificación de Avisos----------\nSeleccione el campo a modificar:\n1-Nombre\n2-Apellido\n3-CUIT\n4-Volver al menú principal\n"
@@ -73,14 +72,20 @@
 
 
 #define ERROR_NOT_AVAILABLE "Debe ingresar al menos un registro para utilizar esta funcionalidad.\n"
-#define PRINT_ONE_REGISTRY "ID: %d - Nombre: %s - Apellido: %s - CUIT: %s\n"
+
+#define PRINT_REGISTRY_BY_ID_TOP "Avisos contratados para el usuario con ID: %d\n"
+#define PRINT_ONE_REGISTRY_BY_ID "ID: %d - Contenido: %s - Estado: %s\n"
+#define PRINT_REGISTRY_NO_RESULTS "El cliente no tiene publicidades contratadas.\n"
 #define EXIT_PROGRAM "Saliendo de la aplicación...\n"
+
+#define DELETE_REGISTRY_NO_RESULTS "El cliente no tiene publicidades contratadas para eliminar.\n"
+#define DELETE_REGISTRY_RESULTS "Cantidad de publicaciones eliminadas: %d.\n"
 
 struct
 {
  int idAviso;
  int rubro;
- char contenido[LONG_NAME];
+ char contenido[LONG_AVISO];
  int isActive;
  int idCliente;
  int isEmpty;
@@ -96,5 +101,7 @@ int aviso_unsuscribeAviso(Aviso* list, int len);
 int aviso_printAvisos(Aviso* list, int length);
 int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, int lenClientes, int id, int order);
 int aviso_altaForzada(int idAviso, int rubro, char* contenido, int isActive, int idCliente, Aviso* list, int lenAviso);
+int aviso_deleteAllAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente);
+int aviso_printAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente);
 
 #endif /* AVISO_H_ */
