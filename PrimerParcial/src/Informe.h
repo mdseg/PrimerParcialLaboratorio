@@ -22,18 +22,13 @@ int informe_countAvisosPausados(Aviso* listAvisos, int lenAvisos);
 int informe_printCountAvisosPausados(Aviso* listAvisos, int lenAvisos);
 int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos);
 int informe_calculateRubroMasAvisos(Aviso* avisos, int lenAvisos);
+int informe_findRubroMoreAvisos(Aviso* listAvisos, int lenAvisos);
 typedef struct
 {
-	int idCliente;
+	int id;
 	int cantidadAvisos;
 	int isEmpty;
-} ClienteAuxiliar;
+} Auxiliar;
 
-typedef struct
-{
-	int idRubro;
-	int cantidadAvisos;
-	int isEmpty;
-} RubroAuxiliar;
 
 #endif /* INFORME_H_ */

@@ -36,6 +36,7 @@ int main(void) {
 	aviso_altaForzada(71, 3, "Plomero y gasista", TRUE, 51, avisos, QTY_AVISOS);
 	aviso_altaForzada(72, 3, "Enfermero", TRUE, 51, avisos, QTY_AVISOS);
 	aviso_altaForzada(73, 3, "Alquilo balcones", TRUE, 51, avisos, QTY_AVISOS);
+	aviso_altaForzada(74, 4, "Se necesita empleado urgente", TRUE, 52, avisos, QTY_AVISOS);
 
 
 	do
@@ -146,7 +147,7 @@ int main(void) {
 								case 3:
 									if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0)
 									{
-										informe_calculateRubroMasAvisos(avisos, QTY_AVISOS);
+										informe_findRubroMoreAvisos(avisos, QTY_AVISOS);
 									}
 									break;
 							}

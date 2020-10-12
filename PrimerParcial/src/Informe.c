@@ -12,10 +12,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-static int clienteAuxiliar_searchFreeIndex(ClienteAuxiliar* list,int* pIndex, int lenClientes);
-static int clienteAuxiliar_init(ClienteAuxiliar* list, int lenClientes);
-static int clienteAuxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos, ClienteAuxiliar* listAuxiliar);
-static int clienteAuxiliar_sortByCantAvisos(ClienteAuxiliar* list, int lenClientes, int order);
+static int auxiliar_searchFreeIndex(Auxiliar* list,int* pIndex, int lenClientes);
+static int auxiliar_init(Auxiliar* list, int lenClientes);
+static int auxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos, Auxiliar* listAuxiliar);
+static int auxiliar_sortByCantAvisos(Auxiliar* list, int lenClientes, int order);
+static int auxiliar_isInArray(Auxiliar* listAuxiliar, int lenAuxiliar, int inputInt);
+static int auxiliar_uploadRubros(Auxiliar* listRubros, int lenRubros , Aviso* listAvisos, int lenAvisos);
 
 int informe_calculateNumAvisosOneCliente(Aviso* listAvisos, int lenAvisos, int idCliente)
 {
@@ -96,20 +98,20 @@ int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso*
 	int i = 0;
 	int index;
 	Cliente clienteMayorAvisos;
-	ClienteAuxiliar listaClientesAvisos[QTY_CLIENTES];
+	Auxiliar listaClientesAvisos[QTY_CLIENTES];
 	int maxnumAvisos;
 	if(listAvisos != NULL &&
 	   lenAvisos > 0 &&
 	   listClientes != NULL &&
 	   lenClientes > 0)
 	{
-		clienteAuxiliar_init(listaClientesAvisos, lenClientes);
-		clienteAuxiliar_calculateNumAvisos(listClientes, lenClientes, listAvisos, lenAvisos, listaClientesAvisos);
-		clienteAuxiliar_sortByCantAvisos(listaClientesAvisos, lenClientes, UP);
+		auxiliar_init(listaClientesAvisos, lenClientes);
+		auxiliar_calculateNumAvisos(listClientes, lenClientes, listAvisos, lenAvisos, listaClientesAvisos);
+		auxiliar_sortByCantAvisos(listaClientesAvisos, lenClientes, UP);
 		maxnumAvisos = listaClientesAvisos[0].cantidadAvisos;
 		while(listaClientesAvisos[i].cantidadAvisos == maxnumAvisos)
 		{
-			index = cliente_findClienteById(listClientes, lenClientes, listaClientesAvisos[i].idCliente);
+			index = cliente_findClienteById(listClientes, lenClientes, listaClientesAvisos[i].id);
 			clienteMayorAvisos = listClientes[index];
 			printf(PRINT_ONE_CLIENTE_ADD_AVISO,clienteMayorAvisos.idCliente,clienteMayorAvisos.nombre,clienteMayorAvisos.apellido,clienteMayorAvisos.cuit,informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, clienteMayorAvisos.idCliente));
 			i++;
@@ -119,7 +121,7 @@ int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso*
 	}
 	return retorno;
 }
-int clienteAuxiliar_init(ClienteAuxiliar* list, int lenClientes)
+int auxiliar_init(Auxiliar* list, int lenClientes)
 {
 	int retorno = -1;
 	int i;
@@ -135,7 +137,7 @@ int clienteAuxiliar_init(ClienteAuxiliar* list, int lenClientes)
 		}
 		return retorno;
 }
-int clienteAuxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos, ClienteAuxiliar* listAuxiliar)
+int auxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos, Auxiliar* listAuxiliar)
 {
 	int retorno = -1;
 	int i;
@@ -151,8 +153,8 @@ int clienteAuxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, A
 			if(listClientes[i].isEmpty == FALSE)
 			{
 				bufferCantAvisos = informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, listClientes[i].idCliente);
-				clienteAuxiliar_searchFreeIndex(listAuxiliar, &index, lenClientes);
-				listAuxiliar[index].idCliente = listClientes[i].idCliente;
+				auxiliar_searchFreeIndex(listAuxiliar, &index, lenClientes);
+				listAuxiliar[index].id = listClientes[i].idCliente;
 				listAuxiliar[index].cantidadAvisos = bufferCantAvisos;
 				listAuxiliar[index].isEmpty = FALSE;
 
@@ -170,7 +172,7 @@ int clienteAuxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, A
 * \return int Return (-1) if Error [Invalid lenAvisosgth or NULL pointer] - (0) if Ok
 *
 */
-static int clienteAuxiliar_searchFreeIndex(ClienteAuxiliar* list,int* pIndex, int lenClientes)
+static int auxiliar_searchFreeIndex(Auxiliar* list,int* pIndex, int lenClientes)
 {
 	int retorno = -1;
 		int i;
@@ -197,12 +199,12 @@ static int clienteAuxiliar_searchFreeIndex(ClienteAuxiliar* list,int* pIndex, in
 * \return int Return (-1) if Error [Invalid lenAvisosgth or NULL pointer] - (0) if Ok
 *
 */
-static int clienteAuxiliar_sortByCantAvisos(ClienteAuxiliar* list, int lenClientes, int order)
+static int auxiliar_sortByCantAvisos(Auxiliar* list, int lenClientes, int order)
 {
 	int retorno = -1;
 		int flagSwap;
 		int i;
-		ClienteAuxiliar buffer;
+		Auxiliar buffer;
 		if(list != NULL && lenClientes >=0)
 		{
 			do
@@ -232,43 +234,6 @@ static int clienteAuxiliar_sortByCantAvisos(ClienteAuxiliar* list, int lenClient
 int informe_calculateRubroMasAvisos(Aviso* avisos, int lenAvisos)
 {
 	int retorno = -1;
-	int arrayRubros[30];
-	int i;
-	int j = 0;
-	int cantidadAvisosRubro;
-	int cantidadAvisosMayorRubro;
-	int banderaPrimero = TRUE;
-	int rubroMayorAvisos;
-	utn_initIntArray(arrayRubros, 30, 100);
-
-	if(avisos != NULL && lenAvisos > 0)
-	{
-		for (i = 0; i < lenAvisos;i++)
-		{
-			if(avisos[i].isEmpty == FALSE && utn_isInArrayInt(arrayRubros, 30, avisos[i].rubro) == 0)
-			{
-				arrayRubros[j] = avisos[i].rubro;
-				j++;
-			}
-		}
-		for (i = 0; i<j;i++)
-		{
-			cantidadAvisosRubro = informe_calculateNumAvisosOneRubro(avisos, lenAvisos, arrayRubros[i]);
-			if(banderaPrimero == TRUE)
-			{
-				rubroMayorAvisos = arrayRubros[i];
-				cantidadAvisosMayorRubro = cantidadAvisosRubro;
-			}
-			else
-			{
-				if(cantidadAvisosRubro > cantidadAvisosMayorRubro)
-				{
-
-				}
-			}
-
-		}
-	}
 
 	return retorno;
 }
@@ -290,4 +255,68 @@ int informe_calculateNumAvisosOneRubro(Aviso* listAvisos, int lenAvisos, int rub
 	}
 	return retorno;
 }
+int informe_findRubroMoreAvisos(Aviso* listAvisos, int lenAvisos)
+{
+	int retorno = -1;
+	//int i = 0;
+	//int index;
+	Auxiliar listaRubros[50];
+	//int maxnumAvisos;
+	if(listAvisos != NULL &&
+	   lenAvisos > 0
+	   )
+	{
+		auxiliar_init(listaRubros, 50);
+		//Cargar los rubros en la lista auxiliar verificando que no se repitan
+		auxiliar_uploadRubros(listaRubros,50,listAvisos,lenAvisos);
+		//Calcular la cantidad de avisos para cada rubro
 
+		//Ordernar de forma descendente
+		//Imprimir los mayores
+
+		retorno = 0;
+	}
+	return retorno;
+}
+static int auxiliar_uploadRubros(Auxiliar* listRubros, int lenRubros , Aviso* listAvisos, int lenAvisos)
+{
+	int retorno = -1;
+	int i;
+	int j = 0;
+	Aviso prueba;
+	if(listRubros != NULL &&
+		lenRubros > 0 &&
+	    listAvisos != NULL &&
+		lenAvisos > 0)
+	{
+		for(i = 0;i < lenAvisos;i++)
+		{
+			prueba = listAvisos[i];
+			if(listAvisos[i].isEmpty == 0 && auxiliar_isInArray(listRubros,lenRubros,listAvisos[i].rubro) == 0)
+			{
+				listRubros[j].id = listAvisos[i].rubro;
+				listRubros[j].isEmpty = FALSE;
+				j++;
+			}
+		}
+	}
+	return retorno;
+}
+static int auxiliar_isInArray(Auxiliar* listAuxiliar, int lenAuxiliar, int inputInt)
+{
+	int retorno = 0;
+	int i;
+	if (listAuxiliar != NULL &&
+		lenAuxiliar > 0)
+	{
+		for(i = 0; i < lenAuxiliar; i++)
+		{
+			if(listAuxiliar[i].isEmpty == FALSE && listAuxiliar[i].id == inputInt)
+			{
+				retorno = 1;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
