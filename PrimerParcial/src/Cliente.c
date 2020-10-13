@@ -17,6 +17,7 @@ static int cliente_removeCliente(Cliente* list, int len, int id);
 int cliente_printClientes(Cliente* list, int length);
 static int cliente_sortClientes(Cliente* list, int len, int order);
 static int cliente_searchFreeIndex(Cliente* list,int* pIndex, int len);
+static int cliente_isRepeatCuit(Cliente* list, int len, char* cuit);
 
 /** \brief call the statics functions to remove an cliente
 * \param list Cliente*
@@ -157,18 +158,27 @@ int cliente_createCliente(Cliente* list, int len)
 		utn_getName(INPUT_NAME,ERROR_GENERIC,nombre, ATTEMPTS, LONG_NAME) == 0 &&
 		utn_getName(INPUT_APELLIDO,ERROR_GENERIC,apellido, ATTEMPTS, LONG_NAME) == 0 &&
 		utn_getCuit(INPUT_CUIT, ERROR_GENERIC, cuit, ATTEMPTS, LONG_NAME) == 0
+
 		)
 	{
-		id = generateNewId();
-		list[index].idCliente=id;
-		utn_upperFirstCharArray(nombre);
-		utn_upperFirstCharArray(apellido);
-		strcpy(list[index].nombre,nombre);
-		strcpy(list[index].apellido,apellido);
-		strcpy(list[index].cuit,cuit);
-	    list[index].isEmpty = FALSE;
-	    printf(CREATE_CLIENTE_SUCCESS,list[index].idCliente);
-		retorno = 0;
+		if(cliente_isRepeatCuit(list, len, cuit) == 0)
+		{
+			id = generateNewId();
+			list[index].idCliente=id;
+			utn_upperFirstCharArray(nombre);
+			utn_upperFirstCharArray(apellido);
+			strcpy(list[index].nombre,nombre);
+			strcpy(list[index].apellido,apellido);
+			strcpy(list[index].cuit,cuit);
+			list[index].isEmpty = FALSE;
+			printf(CREATE_CLIENTE_SUCCESS,list[index].idCliente);
+			retorno = 0;
+		}
+		else
+		{
+			printf(CREATE_CLIENTE_CUIT_ERROR);
+		}
+
 	}
 	return retorno;
 }
@@ -394,12 +404,20 @@ int cliente_altaForzada(char* nombre, char* apellido, char* cuit,Cliente* list, 
 	{
 		if(cliente_searchFreeIndex(list, &index, len) == 0)
 		{
-			Cliente cliente;
-			cliente.idCliente = generateNewId();
-			strcpy(cliente.nombre,nombre);
-			strcpy(cliente.apellido,apellido);
-			strcpy(cliente.cuit,cuit);
-			list[index] = cliente;
+			if(cliente_isRepeatCuit(list, len, cuit) == 0)
+			{
+				Cliente cliente;
+				cliente.idCliente = generateNewId();
+				strcpy(cliente.nombre,nombre);
+				strcpy(cliente.apellido,apellido);
+				strcpy(cliente.cuit,cuit);
+				list[index] = cliente;
+			}
+			else
+			{
+				printf(CREATE_CLIENTE_CUIT_ERROR);
+			}
+
 		}
 	}
 
@@ -424,5 +442,32 @@ int cliente_printOneCliente(Cliente* list, int len, int id)
 		clienteEncontrado = list[indexCliente];
 		printf(PRINT_ONE_REGISTRY,clienteEncontrado.idCliente,clienteEncontrado.nombre,clienteEncontrado.apellido,clienteEncontrado.cuit);
 	}
+	return retorno;
+}
+/** \brief veirfy if a char array is present in a list
+*
+* \param list Cliente*
+* \param len int
+* \param cuit char input cuit
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if no Results (1) if is present
+*
+*/
+static int cliente_isRepeatCuit(Cliente* list, int len, char* cuit)
+{
+	int retorno = -1;
+	int i;
+	if( list != NULL && len >0 && cuit != NULL)
+	{
+		retorno = 0;
+		for (i = 0; i < len;i++)
+			{
+				if(strcmp(list[i].cuit, cuit) == 0)
+				{
+				retorno = 1;
+				break;
+				}
+			}
+	}
+
 	return retorno;
 }

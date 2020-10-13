@@ -27,7 +27,6 @@ int utn_upperFirstCharArray(char pArray[]);
 int utn_isValidName(char* array, int limit);
 int utn_isValidCuit(char* array);
 int utn_initIntArray(int* array,int lenArray, int initValue);
-int utn_isInArrayInt(int* array, int lenArray, int inputInt);
 int utn_verifyLengthArray(char* pArray);
 int utn_getCuit(char* message, char* errorMessage, char* pResult, int attemps, int limit);
 int isValidFileName(char* array);

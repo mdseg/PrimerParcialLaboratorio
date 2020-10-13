@@ -32,6 +32,7 @@
 
 //Create
 #define CREATE_CLIENTE_SUCCESS "Cliente creado con éxito con ID: %d"
+#define CREATE_CLIENTE_CUIT_ERROR "Ya existe un cliente con ese CUIT"
 
 //Modifiy
 #define MODIFY_CLIENTE_SUCCESS "\nCliente modificado correctamente.\n"
@@ -80,5 +81,6 @@ int cliente_unsuscribeCliente(Cliente* list, int len, int idCliente);
 int cliente_printClientes(Cliente* list, int length);
 int cliente_altaForzada(char* nombre, char* apellido, char* cuit,Cliente* list, int len);
 int cliente_printOneCliente(Cliente* list, int len, int idCliente);
+
 #endif /* CLIENTE_H_ */
 

@@ -850,5 +850,20 @@ int utn_getString(char* message, char* errorMessage, char* pResult, int attemps,
 	}
 	return retorno;
 }
-
+/*
+int utn_isInArrayChar(char* array, int lenArray, char* inputInt)
+{
+	int retorno = -1;
+	int i;
+	for(i=0 ; pArray[i] != '\0'; i++)
+			{
+				if(pArray[i] >= 'A' && pArray[i] <= 'Z')
+				{
+					bufferChar = pArray[i]+32;
+					pArray[i] = bufferChar;
+				}
+			}
+	return retorno;
+}
+*/
 
