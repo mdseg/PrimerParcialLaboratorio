@@ -442,3 +442,4 @@ static int auxiliar_calculateNumAvisosRubro(Aviso* listAvisos, int lenAvisos, Au
 	}
 	return retorno;
 }
+
