@@ -17,6 +17,7 @@
 #define HIGH_AVISOS_RUBRO "Rubro: %d\n"
 #define HIGH_AVISOS_TOP "----------Listado de Rubros con la mayor cantidad de avisos--------------\n"
 #define HIGH_CLIENTE_TOP "----------Listado de Clientes con la mayor cantidad de avisos--------------\n"
+#define RUBRO_LEN 30
 
 int informe_calculateNumAvisosOneCliente(Aviso* listAvisos, int lenAvisos, int idCliente);
 int informe_calculateNumAvisosOneRubro(Aviso* listAvisos, int lenAvisos, int rubro);

@@ -15,7 +15,6 @@
 static int generateNewId(void);
 static int cliente_removeCliente(Cliente* list, int len, int id);
 int cliente_printClientes(Cliente* list, int length);
-static int cliente_sortClientes(Cliente* list, int len, int order);
 static int cliente_searchFreeIndex(Cliente* list,int* pIndex, int len);
 static int cliente_isRepeatCuit(Cliente* list, int len, char* cuit);
 
@@ -316,47 +315,7 @@ static int generateNewId(void)
 	id = id+1;
 	return id;
 }
-/** \brief Sort the elements in the array of clientes, the argument order
-indicate UP or DOWN order
-*
-* \param list Cliente*
-* \param len int
-* \param order int [1] indicate UP - [0] indicate DOWN
-* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
-*
-*/
-static int cliente_sortClientes(Cliente* list, int len, int order)
-{
-	int retorno = -1;
-	int flagSwap;
-	int i;
-	Cliente buffer;
-	if(list != NULL && len >=0)
-	{
-		do
-		{
-			flagSwap=0;
-			for(i=0; i<len-1;i++)
-			{
-				if((order == UP && (( strncmp(list[i].nombre, list[i+1].nombre,LONG_NAME) > 0) ||
-						(strncmp(list[i].nombre, list[i+1].nombre,LONG_NAME) == 0 && list[i].cuit > list[i+1].cuit)))
-						||
-						(order == DOWN && (( strncmp(list[i].nombre, list[i+1].nombre,LONG_NAME) < 0) ||
-						(strncmp(list[i].nombre, list[i+1].nombre,LONG_NAME) == 0 && list[i].cuit < list[i+1].cuit))))
-				{
-					flagSwap=1;
-					buffer = list[i];
-					list[i] = list[i+1];
-					list[i+1] = buffer;
-				}
-			}
-		}
-		while(flagSwap);
-		retorno = 0;
-	}
 
-	return retorno;
-}
 /** \brief search the first free index on an array of clientes
 *
 * \param list Cliente*

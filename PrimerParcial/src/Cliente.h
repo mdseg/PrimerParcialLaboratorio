@@ -27,7 +27,7 @@
 #define INPUT_ID "Ingrese el Id:\n"
 #define INPUT_NAME "Ingrese el nombre:\n"
 #define INPUT_APELLIDO "Ingrese el apellido:\n"
-#define INPUT_CUIT "Ingrese el Cuit del cliente sin guiones (ej: 358638628):\n"
+#define INPUT_CUIT "Ingrese el Cuit del cliente sin guiones (ej: 20358638628):\n"
 #define INPUT_DATOINT "Ingrese el datoInt.\n"
 
 //Create

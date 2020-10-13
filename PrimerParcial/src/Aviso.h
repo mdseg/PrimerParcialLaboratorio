@@ -14,11 +14,11 @@
 #define FALSE 0
 #define ATTEMPTS 5
 #define ID_MIN 0
-#define ID_MAX 1000
+#define ID_MAX 100
 #define RUBRO_MIN 1
 #define RUBRO_MAX 30
 #define LONG_NAME 50
-#define QTY_AVISOS 100
+#define QTY_AVISOS 1000
 #define LONG_AVISO 65
 #define PAUSAR 1
 #define RENAUDAR 0

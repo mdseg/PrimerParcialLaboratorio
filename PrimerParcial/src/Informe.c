@@ -147,8 +147,11 @@ int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso*
 	   listClientes != NULL &&
 	   lenClientes > 0)
 	{
+		// Inicializar lista auxiliar
 		auxiliar_init(listaClientesAvisos, lenClientes);
+		// Calcular cantidad de avisos de cada cliente
 		auxiliar_calculateNumAvisos(listClientes, lenClientes, listAvisos, lenAvisos, listaClientesAvisos);
+		//Ordenar lista
 		auxiliar_sortByCantAvisos(listaClientesAvisos, lenClientes, UP);
 		printf(HIGH_CLIENTE_TOP);
 		maxnumAvisos = listaClientesAvisos[0].cantidadAvisos;
@@ -328,19 +331,19 @@ int informe_findRubroMoreAvisos(Aviso* listAvisos, int lenAvisos)
 {
 	int retorno = -1;
 	int i = 0;
-	Auxiliar listaRubros[50];
+	Auxiliar listaRubros[RUBRO_LEN];
 	int maxnumAvisos;
 	if(listAvisos != NULL &&
 	   lenAvisos > 0
 	   )
 	{
-		auxiliar_init(listaRubros, 50);
+		auxiliar_init(listaRubros, RUBRO_LEN);
 		//Cargar los rubros en la lista auxiliar verificando que no se repitan
-		auxiliar_uploadRubros(listaRubros,50,listAvisos,lenAvisos);
+		auxiliar_uploadRubros(listaRubros,RUBRO_LEN,listAvisos,lenAvisos);
 		//Calcular la cantidad de avisos para cada rubro
-		auxiliar_calculateNumAvisosRubro(listAvisos, lenAvisos, listaRubros, 50);
+		auxiliar_calculateNumAvisosRubro(listAvisos, lenAvisos, listaRubros, RUBRO_LEN);
 		//Ordernar de forma descendente
-		auxiliar_sortByCantAvisos(listaRubros, 50, UP);
+		auxiliar_sortByCantAvisos(listaRubros, RUBRO_LEN, UP);
 		//Imprimir los mayores
 		maxnumAvisos = listaRubros[0].cantidadAvisos;
 		printf(HIGH_AVISOS_TOP);
