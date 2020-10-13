@@ -17,12 +17,14 @@
 #include <ctype.h>
 #include "Informe.h"
 
+#define MAIN_MENU "\n-------Sistema de Registro de Clientes y Avisos ----------\nElija una de estas opciones:\n1-Alta de Cliente\n2-Modificar datos de cliente\n3-Baja de Cliente\n4-Publicar\n5-Pausar aviso\n6-Renaudar aviso\n7-Imprimir Clientes\n8-Informar\n9-SALIR\n"
+#define MENU_REPORT "-------Menu de reporte----------\nSeleccione el tipo de informe deseado:\n1-Cliente con más avisos\n2-Cantidad de avisos pausados\n3-Rubro con mas avisos\n4-Volver al menú anterior\n"
+
 int main(void) {
 	int op;
 	int opSecundario;
 	Cliente clientes[QTY_CLIENTES];
 	Aviso avisos[QTY_AVISOS];
-
 	int idElegida;
 	cliente_initClientes(clientes, QTY_CLIENTES);
 	aviso_initAvisos(avisos, QTY_AVISOS);
@@ -37,7 +39,6 @@ int main(void) {
 	aviso_altaForzada(72, 3, "Enfermero", TRUE, 51, avisos, QTY_AVISOS);
 	aviso_altaForzada(73, 3, "Alquilo balcones", TRUE, 51, avisos, QTY_AVISOS);
 	aviso_altaForzada(74, 4, "Se necesita empleado urgente", TRUE, 52, avisos, QTY_AVISOS);
-
 
 	do
 	{
@@ -153,7 +154,7 @@ int main(void) {
 							}
 						}
 					}
-					while (op != 4);
+					while (opSecundario != 4);
 
 
 				}
@@ -161,7 +162,6 @@ int main(void) {
 				{
 					printf(ERROR_NOT_AVAILABLE);
 				}
-				break;
 				break;
 			case 9:
 				printf(EXIT_PROGRAM);

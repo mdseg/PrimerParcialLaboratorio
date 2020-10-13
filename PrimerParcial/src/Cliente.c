@@ -17,10 +17,11 @@ static int cliente_removeCliente(Cliente* list, int len, int id);
 int cliente_printClientes(Cliente* list, int length);
 static int cliente_sortClientes(Cliente* list, int len, int order);
 static int cliente_searchFreeIndex(Cliente* list,int* pIndex, int len);
+
 /** \brief call the statics functions to remove an cliente
 * \param list Cliente*
 * \param len int
-* \param flagFirstCliente int it's a pointer that indicates if a new cliented has been created.
+* \param idCliente id from the client to be erased
 * \return int Return (-1) if Error - (0) if Ok
 */
 int cliente_unsuscribeCliente(Cliente* list, int len, int idCliente)
@@ -57,6 +58,11 @@ int cliente_unsuscribeCliente(Cliente* list, int len, int idCliente)
 
 	return retorno;
 }
+/** \brief show a menu to change Cliente nombre, apellido or CUIT
+* \param list Cliente*
+* \param len int len of the Cliente* list
+* \return int Return (-1) if Error - (0) if Ok
+*/
 int cliente_modifyCliente(Cliente* list, int len)
 {
 	int retorno = -1;
@@ -134,7 +140,11 @@ int cliente_modifyCliente(Cliente* list, int len)
 
 	return retorno;
 }
-
+/** \brief creates a new registry of Cliente type
+* \param list Cliente*
+* \param len int len of the Cliente* list
+* \return int Return (-1) if Error - (0) if Ok
+*/
 int cliente_createCliente(Cliente* list, int len)
 {
 	int retorno = -1;
@@ -194,7 +204,7 @@ int cliente_printClientes(Cliente* list, int length)
 }
 /** \brief To indicate that all position in the array are empty,
  * this function put the flag (isEmpty) in TRUE in all
- * position of the array
+ * position of the array and set a non-range number in idCliente
  * \param list Cliente* Pointer to array of clientes
  * \param len int Array length
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
@@ -364,72 +374,45 @@ static int cliente_searchFreeIndex(Cliente* list,int* pIndex, int len)
 			}
 		return retorno;
 }
-/** \brief call the statics functions to create an report of clientes
+/** \brief create a Client registry directly
 *
+* \param idCLiente int
+* \param nombre char*
+* \param apellido char*
+* \param cuit char*
 * \param list Cliente*
 * \param len int
-* \param flagFirstCliente int it's a pointer that indicates if a new cliented has been created.
-* * \return int Return (-1) if Error - (0) if Ok
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*
 */
-int cliente_createClienteReport(Cliente* list, int len)
-{
-	int retorno = -1;
-	int op;
-	int orden;
-	if(cliente_checkActiveClientes(list, len) == 0)
-	{
-		do
-		{
-			utn_getInt(&op, MENU_REPORT, MENU_SELECT_ERROR, 1, 3, ATTEMPTS);
-			switch (op)
-			{
-				case 1:
-					if(utn_getInt(&orden, MENU_ORDER, MENU_SELECT_ERROR, 1, 2, ATTEMPTS) == 0)
-					{
-						if(orden == 1)
-						{
-							cliente_sortClientes(list, QTY_CLIENTES, UP);
-						}
-						else
-						{
-							cliente_sortClientes(list, QTY_CLIENTES, DOWN);
-						}
-						cliente_printClientes(list, QTY_CLIENTES);
-						printf(REPORT_CLIENTE_SUCCESS_FINISH);
-					}
-					else
-					{
-						printf(REPORT_CLIENTE_ERROR);
-					}
-					break;
-				case 2:
-					break;
-			}
-		}
-		while(op!= 3);
-	}
-	else
-	{
-		printf(ERROR_NOT_AVAILABLE);
-	}
-
-	return retorno;
-}
 int cliente_altaForzada(int idCliente, char* nombre, char* apellido, char* cuit,Cliente* list, int len)
 {
 	int retorno = -1;
 	int index;
-	if(cliente_searchFreeIndex(list, &index, len) == 0)
+	if(idCliente > 0 && nombre != NULL && apellido != NULL && cuit != NULL &&
+		list != NULL && len > 0)
 	{
-		Cliente cliente;
-		cliente.idCliente = idCliente;
-		strcpy(cliente.nombre,nombre);
-		strcpy(cliente.apellido,apellido);
-		strcpy(cliente.cuit,cuit);
-		list[index] = cliente;
+		if(cliente_searchFreeIndex(list, &index, len) == 0)
+		{
+			Cliente cliente;
+			cliente.idCliente = idCliente;
+			strcpy(cliente.nombre,nombre);
+			strcpy(cliente.apellido,apellido);
+			strcpy(cliente.cuit,cuit);
+			list[index] = cliente;
+		}
 	}
+
 	return retorno;
 }
+/** \brief search the first free index on an array of clientes
+*
+* \param list Cliente*
+* \param len int
+* \param id int id from client
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*
+*/
 int cliente_printOneCliente(Cliente* list, int len, int id)
 {
 	int retorno = -1;

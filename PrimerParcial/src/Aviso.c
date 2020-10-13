@@ -8,9 +8,8 @@
 
 static int generateNewId(void);
 static int aviso_removeAviso(Aviso* list, int lenAvisos, int id);
-int aviso_printAvisos(Aviso* list, int lenAvisosgth);
-static int aviso_sortAvisos(Aviso* list, int lenAvisos, int order);
 static int aviso_searchFreeIndex(Aviso* list,int* pIndex, int lenAvisos);
+
 /** \brief call the statics functions to remove an aviso
 * \param list Aviso*
 * \param lenAvisos int
@@ -42,6 +41,11 @@ int aviso_unsuscribeAviso(Aviso* list, int lenAvisos)
 
 	return retorno;
 }
+/** \brief show a menu to change Aviso rubro, contenido or idCliente
+* \param listAviso Aviso* list of Aviso
+* \param len int len of the Aviso* list
+* \return int Return (-1) if Error - (0) if Ok
+*/
 int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, int lenClientes)
 {
 	int retorno = -1;
@@ -116,7 +120,11 @@ int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, in
 
 	return retorno;
 }
-
+/** \brief creates a new registry of Aviso type
+* \param list Aviso*
+* \param lenAvisos int len of the Aviso* list
+* \return int Return (-1) if Error - (0) if Ok
+*/
 int aviso_createAviso(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, int lenClientes)
 {
 	int retorno = -1;
@@ -146,36 +154,6 @@ int aviso_createAviso(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, i
 		}
 	}
 	return retorno;
-}
-/** \brief print the content of avisos array
- *
- * \param list Aviso*
- * \param lenAvisosgth int
- * \return retorno
- *
- */
-int aviso_printAvisos(Aviso* list, int lenAvisosgth)
-{
-	int retorno = -1;
-	int i;
-	int flagResults = FALSE;
-	if (list != NULL && lenAvisosgth > 0)
-	{
-		for(i = 0; i < lenAvisosgth; i++)
-		{
-			if(list[i].isEmpty == 0)
-			{
-				if(flagResults == FALSE)
-				{
-					flagResults = TRUE;
-					retorno = 0;
-				}
-				//printf(PRINT_ONE_REGISTRY,list[i].idAviso,list[i].nombre,list[i].apellido,list[i].cuit);
-
-			}
-		}
-	}
- return retorno;
 }
 /** \brief To indicate that all position in the array are empty,
  * this function put the flag (isEmpty) in TRUE in all
@@ -280,49 +258,6 @@ static int generateNewId(void)
 	id = id+1;
 	return id;
 }
-/** \brief Sort the elements in the array of avisos, the argument order
-indicate UP or DOWN order
-*
-* \param list Aviso*
-* \param lenAvisos int
-* \param order int [1] indicate UP - [0] indicate DOWN
-* \return int Return (-1) if Error [Invalid lenAvisosgth or NULL pointer] - (0) if Ok
-*
-*/
-static int aviso_sortAvisos(Aviso* list, int lenAvisos, int order)
-{
-	int retorno = -1;
-	int flagSwap;
-	int i;
-	//Aviso buffer;
-	if(list != NULL && lenAvisos >=0)
-	{
-		do
-		{
-			flagSwap=0;
-			for(i=0; i<lenAvisos-1;i++)
-			{
-				/*
-				if((order == UP && (( strncmp(list[i].nombre, list[i+1].nombre,LONG_NAME) > 0) ||
-						(strncmp(list[i].nombre, list[i+1].nombre,LONG_NAME) == 0 && list[i].cuit > list[i+1].cuit)))
-						||
-						(order == DOWN && (( strncmp(list[i].nombre, list[i+1].nombre,LONG_NAME) < 0) ||
-						(strncmp(list[i].nombre, list[i+1].nombre,LONG_NAME) == 0 && list[i].cuit < list[i+1].cuit))))
-				{
-					flagSwap=1;
-					buffer = list[i];
-					list[i] = list[i+1];
-					list[i+1] = buffer;
-				}
-				*/
-			}
-		}
-		while(flagSwap);
-		retorno = 0;
-	}
-
-	return retorno;
-}
 /** \brief search the first free index on an array of avisos
 *
 * \param list Aviso*
@@ -350,59 +285,17 @@ static int aviso_searchFreeIndex(Aviso* list,int* pIndex, int lenAvisos)
 			}
 		return retorno;
 }
-/** \brief call the statics functions to create an report of avisos
-*
-* \param list Aviso*
-* \param lenAvisos int
-* \param flagFirstAviso int it's a pointer that indicates if a new avisod has been created.
-* * \return int Return (-1) if Error - (0) if Ok
-*/
-int aviso_createAvisoReport(Aviso* list, int lenAvisos)
-{
-	int retorno = -1;
-	int op;
-	int orden;
-	if(aviso_checkActiveAvisos(list, lenAvisos) == 0)
-	{
-		do
-		{
-			utn_getInt(&op, MENU_REPORT, MENU_SELECT_ERROR, 1, 3, ATTEMPTS);
-			switch (op)
-			{
-				case 1:
-					if(utn_getInt(&orden, MENU_ORDER, MENU_SELECT_ERROR, 1, 2, ATTEMPTS) == 0)
-					{
-						if(orden == 1)
-						{
-							aviso_sortAvisos(list, QTY_AVISOS, UP);
-						}
-						else
-						{
-							aviso_sortAvisos(list, QTY_AVISOS, DOWN);
-						}
-						aviso_printAvisos(list, QTY_AVISOS);
-						printf(REPORT_AVISO_SUCCESS_FINISH);
-					}
-					else
-					{
-						printf(REPORT_AVISO_ERROR);
-					}
-					break;
-				case 2:
-					break;
-			}
-		}
-		while(op!= 3);
-	}
-	else
-	{
-		printf(ERROR_NOT_AVAILABLE);
-	}
-
-	return retorno;
-}
 //Order TRUE activar FALSE desactivar
-
+/** \brief change the status of Aviso element
+*
+* \param Aviso* listAvisos
+* \param int lenAvisos
+* \param Cliente* listClientes
+* \param int lenClientes
+* \param order int [1] indicate UP - [0] indicate DOWN
+* \return int Return (-1) if Error [Invalid lenAvisosgth or NULL pointer] - (0) if Ok
+*
+*/
 int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, int lenClientes, int id, int order)
 {
 	int retorno = -1;
@@ -413,32 +306,43 @@ int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, 
 		id > 0 && bufferIndex != -1
 		&& listAvisos[bufferIndex].isEmpty == FALSE)
 	{
-		idCliente = listAvisos[bufferIndex].idCliente;
-		cliente_printOneCliente(listClientes, lenClientes, idCliente);
-
-		if(utn_getInt(&op, "¿Desea confirmar la operación? Ingrese 1 para confirmar y 2 para cancelar.\n", "Error", 1, 2, ATTEMPTS) == 0)
+		if(order == PAUSAR && listAvisos[bufferIndex].isActive == FALSE)
 		{
-			if(op == 1)
+			printf(CHANGE_AVISO_ALREADY_PAUSED);
+		}
+		else if(order == RENAUDAR && listAvisos[bufferIndex].isActive == TRUE)
+		{
+			printf(CHANGE_AVISO_ALREADY_ACTIVED);
+		}
+		else
+		{
+			idCliente = listAvisos[bufferIndex].idCliente;
+			printf(CHANGE_AVISO_CLIENTE);
+			cliente_printOneCliente(listClientes, lenClientes, idCliente);
+
+			if(utn_getInt(&op, CONFIRM_CHANGE_STATUS, ERROR_GENERIC, 1, 2, ATTEMPTS) == 0)
 			{
-				if(order == PAUSAR)
+				if(op == 1)
 				{
-					listAvisos[bufferIndex].isActive = FALSE;
-					retorno = 0;
-					printf(PAUSE_AVISO_SUCCESS,listAvisos[bufferIndex].idAviso);
+					if(order == PAUSAR)
+					{
+						listAvisos[bufferIndex].isActive = FALSE;
+						retorno = 0;
+						printf(PAUSE_AVISO_SUCCESS,listAvisos[bufferIndex].idAviso);
+					}
+					else
+					{
+						listAvisos[bufferIndex].isActive = TRUE;
+						retorno = 0;
+						printf(RESUME_AVISO_SUCCESS,listAvisos[bufferIndex].idAviso);
+					}
 				}
 				else
 				{
-					listAvisos[bufferIndex].isActive = TRUE;
-					retorno = 0;
-					printf(RESUME_AVISO_SUCCESS,listAvisos[bufferIndex].idAviso);
+					printf(CHANGE_USER_ABORT);
 				}
 			}
-			else
-			{
-				printf("Operación cancelada por el usuario");
-			}
 		}
-
 	}
 	else
 	{
@@ -447,23 +351,48 @@ int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, 
 
 	return retorno;
 }
+/** \brief create a Aviso registry directly
+*
+* \param int idAviso
+* \param int rubro
+* \param char* contenido
+* \param int isActive
+* \param Aviso* list
+* \param int lenAviso
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*
+*/
 int aviso_altaForzada(int idAviso, int rubro, char* contenido, int isActive, int idCliente, Aviso* list, int lenAviso)
 {
 	int retorno = -1;
 	int index;
-	if(aviso_searchFreeIndex(list, &index, lenAviso) == 0)
+	if(idAviso > 0 && rubro >= RUBRO_MIN && rubro <= RUBRO_MAX && contenido != NULL &&
+			(isActive == (TRUE || FALSE)) && idCliente > 0 && list != NULL && lenAviso > 0)
 	{
-		Aviso aviso;
-		aviso.idAviso= idAviso;
-		aviso.rubro = rubro;
-		strcpy(aviso.contenido,contenido);
-		aviso.isActive = isActive;
-		aviso.idCliente = idCliente;
-		aviso.isEmpty = FALSE;
-		list[index] = aviso;
+		if(aviso_searchFreeIndex(list, &index, lenAviso) == 0)
+		{
+			Aviso aviso;
+			aviso.idAviso= idAviso;
+			aviso.rubro = rubro;
+			strcpy(aviso.contenido,contenido);
+			aviso.isActive = isActive;
+			aviso.idCliente = idCliente;
+			aviso.isEmpty = FALSE;
+			list[index] = aviso;
+			retorno = 0;
+		}
 	}
+
 	return retorno;
 }
+/** \brief prints All avisos related with an idCliente
+*
+* \param Aviso* listAvisos
+* \param int lenAvisos
+* \param int idCliente its the ID from the Client
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*
+*/
 int aviso_printAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente)
 {
 	int retorno = -1;
@@ -498,6 +427,14 @@ int aviso_printAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente
 
 	return retorno;
 }
+/** \brief delete All avisos related with an idCliente
+*
+* \param Aviso* listAvisos
+* \param int lenAvisos
+* \param int idCliente its the ID from the Client
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*
+*/
 int aviso_deleteAllAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente)
 {
 	int retorno = -1;
@@ -525,12 +462,4 @@ int aviso_deleteAllAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCli
 		}
 	return retorno;
 }
-/*
- * Se me ocurre hacer 3 funciones:
-1. La impresión de las publicaciones (en informes)
-2. El borrado del cliente (en cliente)
-3. El borrado de las publicaciones (en publicaciones)
-
-Llamarlo todo desde el main
- */
 

@@ -15,17 +15,11 @@
 #define ID_MAX 1000
 #define LONG_NAME 50
 #define QTY_CLIENTES 100
-#define DATOINT_MIN 0
-#define DATOINT_MAX 1000
-#define FLOTANTE_MIN 0
-#define FLOTANTE_MAX 100000
 #define UP 1
 #define DOWN 0
 
-#define MAIN_MENU "\n-------Sistema de Registro de Clientes y Avisos ----------\nElija una de estas opciones:\n1-Alta de Cliente\n2-Modificar datos de cliente\n3-Baja de Cliente\n4-Publicar\n5-Pausar publicación\n6-Renaudar publicación\n7-Imprimir Clientes\n8-Informar\n9-SALIR\n"
+
 #define MENU_MODIFY "-------Menu de modificación de Clientes----------\nSeleccione el campo a modificar:\n1-Nombre\n2-Apellido\n3-CUIT\n4-Volver al menú principal\n"
-#define MENU_REPORT "-------Menu de reporte----------\nSeleccione el tipo de informe deseado:\n1-Cliente con más avisos\n2-Cantidad de avisos pausados\n3-Rubro con mas avisos\n4-Volver al menú anterior\n"
-#define MENU_ORDER "Seleccione el orden alfabético del informe:\n1-Ascendente\n2-Descendente\n"
 #define MENU_SELECT_ERROR "Por favor, elija una opción valida.\n"
 
 
@@ -33,7 +27,7 @@
 #define INPUT_ID "Ingrese el Id:\n"
 #define INPUT_NAME "Ingrese el nombre:\n"
 #define INPUT_APELLIDO "Ingrese el apellido:\n"
-#define INPUT_CUIT "Ingrese el Cuit del cliente:\n"
+#define INPUT_CUIT "Ingrese el Cuit del cliente sin guiones (ej: 358638628):\n"
 #define INPUT_DATOINT "Ingrese el datoInt.\n"
 
 //Create

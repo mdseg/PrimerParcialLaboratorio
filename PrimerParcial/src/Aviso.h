@@ -25,13 +25,9 @@
 #define UP 1
 #define DOWN 0
 
-//#define MAIN_MENU "\n-------Sistema de Registro de Avisos y Avisos ----------\nElija una de estas opciones:\n1-Alta de Aviso\n2-Modificar datos de aviso\n3-Baja de Aviso\n4-Publicar\n5-Pausar publicación\n6-Renaudar publicación\n7-Imprimir Avisos\n8-Informar\n9-SALIR\n"
+
 #define MENU_MODIFY_AVISO "-------Menu de modificación de Avisos----------\nSeleccione el campo a modificar:\n1-Nombre\n2-Apellido\n3-CUIT\n4-Volver al menú principal\n"
-//#define MENU_REPORT "-------Menu de reporte----------\nSeleccione el tipo de informe deseado:\n1-Listado de los empleados ordenados alfabéticamente por Name y datoInt.\n2- Función Personalizada\n3-Volver al menú principal\n"
-//#define MENU_ORDER "Seleccione el orden alfabético del informe:\n1-Ascendente\n2-Descendente\n"
 #define MENU_SELECT_ERROR "Por favor, elija una opción valida.\n"
-
-
 
 #define INPUT_IDAVISO "Ingrese el Id del aviso:\n"
 #define INPUT_RUBRO "Ingrese el rubro:\n"
@@ -52,11 +48,15 @@
 #define MODIFY_CONTENIDO_SUCCESS "Contenido del aviso modificado.\n"
 #define MODIFY_CONTENIDO_ERROR "Error al modificar el contenido del aviso.\n"
 
-//Pause
+//Change status
 #define PAUSE_AVISO_SUCCESS "Pausado el aviso con Id: %d.\n"
 #define CHANGE_AVISO_ERROR "No se ha encontrado un aviso con ese Id.\n"
 #define RESUME_AVISO_SUCCESS "Reanudado el aviso con Id: %d.\n"
-
+#define CHANGE_AVISO_CLIENTE "Datos del cliente asociado al aviso\n"
+#define CONFIRM_CHANGE_STATUS "¿Desea confirmar la operación? Ingrese 1 para confirmar y 2 para cancelar.\n"
+#define CHANGE_AVISO_ALREADY_PAUSED "El aviso ya se encuentra pausado.\n"
+#define CHANGE_AVISO_ALREADY_ACTIVED "El aviso ya se encuentra activo.\n"
+#define CHANGE_USER_ABORT "Operación cancelada por el usuario.\n"
 //Informe
 #define REPORT_AVISO_SUCCESS_FINISH "----Finalizado el informe----\n"
 #define REPORT_AVISO_ERROR "\nError al realizar el informe.\n"
@@ -76,7 +76,6 @@
 #define PRINT_REGISTRY_BY_ID_TOP "Avisos contratados para el usuario con ID: %d\n"
 #define PRINT_ONE_REGISTRY_BY_ID "ID: %d - Contenido: %s - Estado: %s\n"
 #define PRINT_REGISTRY_NO_RESULTS "El cliente no tiene publicidades contratadas.\n"
-#define EXIT_PROGRAM "Saliendo de la aplicación...\n"
 
 #define DELETE_REGISTRY_NO_RESULTS "El cliente no tiene publicidades contratadas para eliminar.\n"
 #define DELETE_REGISTRY_RESULTS "Cantidad de publicaciones eliminadas: %d.\n"

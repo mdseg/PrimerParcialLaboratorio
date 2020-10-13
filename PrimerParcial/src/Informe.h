@@ -15,6 +15,7 @@
 #define ENTERING_CLIENTE_LIST "Ingresando al listado de todos los clientes.\n"
 #define PRINT_COUNT_AVISOS_PAUSADOS "La cantidad de avisos pausados es de: %d\n"
 #define HIGH_AVISOS_RUBRO "Rubro: %d\n"
+#define HIGH_AVISOS_TOP "----------Listado de Rubros con mayores cantidad de avisos--------------\n"
 
 int informe_calculateNumAvisosOneCliente(Aviso* listAvisos, int lenAvisos, int idCliente);
 int informe_calculateNumAvisosOneRubro(Aviso* listAvisos, int lenAvisos, int rubro);
