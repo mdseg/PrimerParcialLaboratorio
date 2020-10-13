@@ -28,6 +28,7 @@ int main(void) {
 	int idElegida;
 	cliente_initClientes(clientes, QTY_CLIENTES);
 	aviso_initAvisos(avisos, QTY_AVISOS);
+	/*
 	cliente_altaForzada("Jorge", "Jesus", "20358638628", clientes, QTY_CLIENTES);
 	cliente_altaForzada("Maria", "Damonte", "27229381828", clientes, QTY_CLIENTES);
 	cliente_altaForzada("Fernando", "Fleitas", "20235838321", clientes, QTY_CLIENTES);
@@ -39,7 +40,7 @@ int main(void) {
 	aviso_altaForzada(3, "Enfermero", TRUE, 2, avisos, QTY_AVISOS);
 	aviso_altaForzada(3, "Alquilo balcones", TRUE, 3, avisos, QTY_AVISOS);
 	aviso_altaForzada(4, "Se necesita empleado urgente", TRUE, 3, avisos, QTY_AVISOS);
-
+	*/
 	do
 	{
 		utn_getInt(&op, MAIN_MENU, ERROR_GENERIC, 1, 9, ATTEMPTS);

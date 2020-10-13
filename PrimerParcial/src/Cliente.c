@@ -77,7 +77,7 @@ int cliente_modifyCliente(Cliente* list, int len)
 	Cliente bufferCliente;
 
 
-	if(utn_getInt(&id, INPUT_ID, ERROR_GENERIC, ID_MIN, ID_MAX, 2) == 0)
+	if(utn_getInt(&id, INPUT_ID, ERROR_GENERIC, 1, 1000, 2) == 0)
 	{
 		index = cliente_findClienteById(list, QTY_CLIENTES, id);
 
@@ -311,7 +311,7 @@ static int cliente_removeCliente(Cliente* list, int len, int id)
  */
 static int generateNewId(void)
 {
-	static int id= ID_MIN;
+	static int id= 0;
 	id = id+1;
 	return id;
 }

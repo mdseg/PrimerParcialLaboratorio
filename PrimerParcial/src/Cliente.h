@@ -11,8 +11,6 @@
 #define TRUE 1
 #define FALSE 0
 #define ATTEMPTS 5
-#define ID_MIN 0
-#define ID_MAX 1000
 #define LONG_NAME 50
 #define QTY_CLIENTES 100
 #define UP 1
