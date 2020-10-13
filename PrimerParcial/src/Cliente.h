@@ -78,7 +78,7 @@ int cliente_findClienteById(Cliente* list, int len,int id);
 int cliente_modifyCliente(Cliente* list, int len);
 int cliente_unsuscribeCliente(Cliente* list, int len, int idCliente);
 int cliente_printClientes(Cliente* list, int length);
-int cliente_altaForzada(int idCliente, char* nombre, char* apellido, char* cuit,Cliente* list, int len);
+int cliente_altaForzada(char* nombre, char* apellido, char* cuit,Cliente* list, int len);
 int cliente_printOneCliente(Cliente* list, int len, int idCliente);
 #endif /* CLIENTE_H_ */
 

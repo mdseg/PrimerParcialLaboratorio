@@ -28,17 +28,17 @@ int main(void) {
 	int idElegida;
 	cliente_initClientes(clientes, QTY_CLIENTES);
 	aviso_initAvisos(avisos, QTY_AVISOS);
-	cliente_altaForzada(50, "Jorge", "Jesus", "20358638628", clientes, QTY_CLIENTES);
-	cliente_altaForzada(51, "Maria", "Damonte", "27229381828", clientes, QTY_CLIENTES);
-	cliente_altaForzada(52, "Fernando", "Fleitas", "20235838321", clientes, QTY_CLIENTES);
+	cliente_altaForzada("Jorge", "Jesus", "20358638628", clientes, QTY_CLIENTES);
+	cliente_altaForzada("Maria", "Damonte", "27229381828", clientes, QTY_CLIENTES);
+	cliente_altaForzada("Fernando", "Fleitas", "20235838321", clientes, QTY_CLIENTES);
 
-	aviso_altaForzada(50, 2, "Aviso de prueba", TRUE, 50, avisos, QTY_AVISOS);
-	aviso_altaForzada(60, 2, "Se vende auto. 4 puertas con excelente vista a la calle", TRUE, 50, avisos, QTY_AVISOS);
-	aviso_altaForzada(70, 2, "Pinto casas a domicilio", TRUE, 50, avisos, QTY_AVISOS);
-	aviso_altaForzada(71, 3, "Plomero y gasista", TRUE, 51, avisos, QTY_AVISOS);
-	aviso_altaForzada(72, 3, "Enfermero", TRUE, 51, avisos, QTY_AVISOS);
-	aviso_altaForzada(73, 3, "Alquilo balcones", TRUE, 51, avisos, QTY_AVISOS);
-	aviso_altaForzada(74, 4, "Se necesita empleado urgente", TRUE, 52, avisos, QTY_AVISOS);
+	aviso_altaForzada(2, "Aviso de prueba", TRUE, 50, avisos, QTY_AVISOS);
+	aviso_altaForzada(2, "Se vende auto. 4 puertas con excelente vista a la calle", TRUE, 50, avisos, QTY_AVISOS);
+	aviso_altaForzada(2, "Pinto casas a domicilio", TRUE, 50, avisos, QTY_AVISOS);
+	aviso_altaForzada(3, "Plomero y gasista", TRUE, 51, avisos, QTY_AVISOS);
+	aviso_altaForzada(3, "Enfermero", TRUE, 51, avisos, QTY_AVISOS);
+	aviso_altaForzada(3, "Alquilo balcones", TRUE, 51, avisos, QTY_AVISOS);
+	aviso_altaForzada(4, "Se necesita empleado urgente", TRUE, 52, avisos, QTY_AVISOS);
 
 	do
 	{
@@ -155,8 +155,6 @@ int main(void) {
 						}
 					}
 					while (opSecundario != 4);
-
-
 				}
 				else
 				{

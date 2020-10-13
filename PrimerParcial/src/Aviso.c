@@ -362,17 +362,17 @@ int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, 
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
 */
-int aviso_altaForzada(int idAviso, int rubro, char* contenido, int isActive, int idCliente, Aviso* list, int lenAviso)
+int aviso_altaForzada(int rubro, char* contenido, int isActive, int idCliente, Aviso* list, int lenAviso)
 {
 	int retorno = -1;
 	int index;
-	if(idAviso > 0 && rubro >= RUBRO_MIN && rubro <= RUBRO_MAX && contenido != NULL &&
+	if(rubro >= RUBRO_MIN && rubro <= RUBRO_MAX && contenido != NULL &&
 			(isActive == (TRUE || FALSE)) && idCliente > 0 && list != NULL && lenAviso > 0)
 	{
 		if(aviso_searchFreeIndex(list, &index, lenAviso) == 0)
 		{
 			Aviso aviso;
-			aviso.idAviso= idAviso;
+			aviso.idAviso= generateNewId();
 			aviso.rubro = rubro;
 			strcpy(aviso.contenido,contenido);
 			aviso.isActive = isActive;

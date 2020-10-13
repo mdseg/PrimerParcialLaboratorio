@@ -99,7 +99,7 @@ int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, in
 int aviso_unsuscribeAviso(Aviso* list, int len);
 int aviso_printAvisos(Aviso* list, int length);
 int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, int lenClientes, int id, int order);
-int aviso_altaForzada(int idAviso, int rubro, char* contenido, int isActive, int idCliente, Aviso* list, int lenAviso);
+int aviso_altaForzada(int rubro, char* contenido, int isActive, int idCliente, Aviso* list, int lenAviso);
 int aviso_deleteAllAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente);
 int aviso_printAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente);
 

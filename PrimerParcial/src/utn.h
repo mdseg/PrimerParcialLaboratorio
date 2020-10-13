@@ -18,7 +18,6 @@ int utn_getMinimoArrayInt(int array[], int *pResultado, int size);
 int utn_getMaximoArrayInt(int array[], int *pResultado, int size);
 int utn_promedioArray(int array[], float* pResultado, int size);
 int utn_ordenarArrayInt(int* pArray, int limite, int order);
-int utn_ordenarArrayIntDesc(int* pArray, int limite);
 int utn_printArrayInt(int* pArray, int limite);
 int utn_contadorArray(int* pArray, int limite, int valorBuscado, int* pContador);
 int utn_contadorArrayChar(char* pArray, char valorBuscado, int* pContador);

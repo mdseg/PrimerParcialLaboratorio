@@ -211,7 +211,7 @@ static int utn_verifyNumArray(char* array)
  * */
 int utn_isValidName(char* array, int limit)
 {
-	int respuesta = 1; // TOdo ok
+	int respuesta = 1;
 	int i;
 	int flagSpace = FALSE;
 
@@ -503,45 +503,6 @@ int utn_printArrayInt(int* pArray, int limite)
 	return retorno;
 }
 /**
- * \brief ordena un array de enteros DESC
- * \param pArray es el puntero al array a ser ordenado.
- * \pram size Es la longitud del array.
- * \return Cantidad de iteraciones necesarias para Ordenar si Ok o -1 para indicar un error.
- */
-int utn_ordenarArrayIntDesc(int* pArray, int limite)
-{
-	int flagSwap;
-	int i;
-	int contador = 0;
-	int retorno = -1;
-	int buffer;
-	int nuevoLimite;
-	if(pArray != NULL && limite >=0)
-	{
-		nuevoLimite = limite - 1;
-		do
-		{
-			flagSwap=0;
-			for(i=0; i<nuevoLimite;i++)
-			{
-				contador++;
-				if(pArray[i] < pArray[i+1])
-				{
-					flagSwap=1;
-					buffer = pArray[i];
-					pArray[i] = pArray[i+1];
-					pArray[i+1] = buffer;
-				}
-
-			}
-			nuevoLimite--;
-		}
-		while(flagSwap);
-		retorno = contador;
-	}
-	return retorno;
-}
-/**
  * \brief ordena un array de enteros ASC
  * \param pArray es el puntero al array a ser ordenado.
  * \pram size Es la longitud del array.
@@ -725,10 +686,10 @@ int utn_lowerCharArray(char pArray[])
 	return retorno;
 }
 /**
-* \brief ​ Convierte los caracteres alfabéticos de una cadena de char en minuscula.
+* \brief ​ Valida si la cadena ingresada es un cuit valido
 * \​param​ ​ pArray[]​ char​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
-* \return ​ Retorna​ 0 (​ vardadero​ ) ​ si pudo realizarse la operacion
-*  Devuelve -1 (​ falso​ ) ​ si​ no se cumplieron estas condiciones.
+* \return ​ Retorna​ 1 (​ verdadero​ ) ​ si se comprobó ser un cuit valido
+*  Devuelve 0 (​ falso​ ) ​ si​ no se cumplieron estas condiciones.
 */
 static int utn_isValidCuit(char* array)
 {
@@ -755,6 +716,12 @@ static int utn_isValidCuit(char* array)
 
 	return retorno;
 }
+/**
+* \brief ​ Valida la cantidad de caracteres de un Array
+* \​param​ ​ pArray[]​ char​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
+* \return ​ Retorna​ la cantidad de caracteres de la cadena si pudo calcularse
+*  Devuelve -1(​ falso​ ) ​ si el array es nulo.
+*/
 static int utn_verifyLengthArray(char* pArray)
 {
 	int retorno = -1;
@@ -772,7 +739,7 @@ static int utn_verifyLengthArray(char* pArray)
 	return retorno;
 }
 /**
-* \brief Solicita un nombre al usuario y lo valida.
+* \brief Solicita un CUIT al usuario y lo valida.
 * \param char* mensaje, Es el mensaje a ser mostrado al usuario.
 * \param char* mensajeError, Es el mensaje de error a ser mostrado al usuario.
 * \param char* pResultado, puntero al espacio de memoria donde se dejará el valor obtenido.
@@ -808,6 +775,12 @@ int utn_getCuit(char* message, char* errorMessage, char* pResult, int attemps, i
 	}
 	return retorno;
 }
+/**
+* \brief ​ Valida si una cadena es un nombre de archivo valido
+* \​param​ ​ char* array​​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
+* \return ​ Retorna​ 1 (​ verdadero​ ) ​ si se comprobó ser un nombre de arhivo valido
+*  Devuelve 0 (​ falso​ ) ​ si​ no se cumplieron estas condiciones.
+*/
 int isValidFileName(char* array)
 {
 	int retorno = 1;
@@ -840,12 +813,17 @@ int isValidFileName(char* array)
 				}
 			}
 		}
-
-
-
 	return retorno;
-
 }
+/**
+* \brief Solicita un String al usuario y lo valida.
+* \param char* message, Es el mensaje a ser mostrado al usuario.
+* \param char* errorMessage, Es el mensaje de error a ser mostrado al usuario.
+* \param char* pResult, puntero al espacio de memoria donde se dejará el valor obtenido.
+* \param int attempts, cantidad de oportunidades para ingresar el dato
+* \param limit la longitud del array permitida
+* \return (-1) Error / (0) Ok
+ */
 int utn_getString(char* message, char* errorMessage, char* pResult, int attemps, int limit)
 {
 	int retorno = -1;
@@ -872,32 +850,5 @@ int utn_getString(char* message, char* errorMessage, char* pResult, int attemps,
 	}
 	return retorno;
 }
-int utn_isInArrayInt(int* array, int lenArray, int inputInt)
-{
-	int retorno = 0;
-	int i;
-	for (i = 0;i < lenArray;i++)
-	{
-		if(array[i] == inputInt)
-		{
-			retorno = 1;
-			break;
-		}
-	}
-	return retorno;
-}
-int utn_initIntArray(int* array,int lenArray, int initValue)
-{
-	int retorno = -1;
-	int i;
-	if(array != NULL & lenArray > 0)
-	{
-		for (i = 0;i < lenArray;i++)
-			{
-				array[i] = initValue;
-			}
-		retorno = 0;
-	}
 
-	return retorno;
-}
+

@@ -150,6 +150,7 @@ int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso*
 		auxiliar_init(listaClientesAvisos, lenClientes);
 		auxiliar_calculateNumAvisos(listClientes, lenClientes, listAvisos, lenAvisos, listaClientesAvisos);
 		auxiliar_sortByCantAvisos(listaClientesAvisos, lenClientes, UP);
+		printf(HIGH_CLIENTE_TOP);
 		maxnumAvisos = listaClientesAvisos[0].cantidadAvisos;
 		while(listaClientesAvisos[i].cantidadAvisos == maxnumAvisos)
 		{

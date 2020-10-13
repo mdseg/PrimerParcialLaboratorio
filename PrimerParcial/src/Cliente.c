@@ -385,17 +385,17 @@ static int cliente_searchFreeIndex(Cliente* list,int* pIndex, int len)
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
 */
-int cliente_altaForzada(int idCliente, char* nombre, char* apellido, char* cuit,Cliente* list, int len)
+int cliente_altaForzada(char* nombre, char* apellido, char* cuit,Cliente* list, int len)
 {
 	int retorno = -1;
 	int index;
-	if(idCliente > 0 && nombre != NULL && apellido != NULL && cuit != NULL &&
+	if(nombre != NULL && apellido != NULL && cuit != NULL &&
 		list != NULL && len > 0)
 	{
 		if(cliente_searchFreeIndex(list, &index, len) == 0)
 		{
 			Cliente cliente;
-			cliente.idCliente = idCliente;
+			cliente.idCliente = generateNewId();
 			strcpy(cliente.nombre,nombre);
 			strcpy(cliente.apellido,apellido);
 			strcpy(cliente.cuit,cuit);
