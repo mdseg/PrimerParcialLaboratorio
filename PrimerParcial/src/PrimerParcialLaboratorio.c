@@ -28,8 +28,8 @@ int main(void) {
 	int idElegida;
 	cliente_initClientes(clientes, QTY_CLIENTES);
 	aviso_initAvisos(avisos, QTY_AVISOS);
-	/*
-	cliente_altaForzada("Jorge", "Jesus", "20358638628", clientes, QTY_CLIENTES);
+
+	cliente_altaForzada("Jorge Ismael Dario", "Jesus", "20358638628", clientes, QTY_CLIENTES);
 	cliente_altaForzada("Maria", "Damonte", "27229381828", clientes, QTY_CLIENTES);
 	cliente_altaForzada("Fernando", "Fleitas", "20235838321", clientes, QTY_CLIENTES);
 
@@ -40,7 +40,10 @@ int main(void) {
 	aviso_altaForzada(3, "Enfermero", TRUE, 2, avisos, QTY_AVISOS);
 	aviso_altaForzada(3, "Alquilo balcones", TRUE, 3, avisos, QTY_AVISOS);
 	aviso_altaForzada(4, "Se necesita empleado urgente", TRUE, 3, avisos, QTY_AVISOS);
-	*/
+
+
+	printf("|%-24s| %-24s| %-16s| %-4d | %-21d|\n",clientes[0].apellido,clientes[0].nombre,clientes[0].cuit,clientes[0].idCliente,4);
+	printf("|%-24s| %-24s| %-16s| %-4d | %-21d|\n",clientes[1].apellido,clientes[1].nombre,clientes[1].cuit,clientes[1].idCliente,3);
 	do
 	{
 		utn_getInt(&op, MAIN_MENU, ERROR_GENERIC, 1, 9, ATTEMPTS);
@@ -68,10 +71,19 @@ int main(void) {
 					if(utn_getInt(&opSecundario, INPUT_ID, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 &&
 						aviso_printAvisosByIdCliente(avisos, QTY_AVISOS, opSecundario) == 0)
 					{
-						if(cliente_unsuscribeCliente(clientes, QTY_CLIENTES,opSecundario) == 1)
+						if(utn_getInt(&opSecundario,DELETE_CLIENTE_CONFIRM, ERROR_GENERIC, 1, 2, ATTEMPTS) == 0)
 						{
+							if(opSecundario == 1)
+							{
 							aviso_deleteAllAvisosByIdCliente(avisos, QTY_AVISOS, opSecundario);
+							cliente_unsuscribeCliente(clientes, QTY_CLIENTES,opSecundario);
+							}
 						}
+						else
+						{
+							printf("CANCELADO");
+						}
+
 					}
 				}
 				else
@@ -82,7 +94,7 @@ int main(void) {
 			case 4:
 				if(cliente_checkActiveClientes(clientes, QTY_CLIENTES) == 0)
 				{
-					printf(ENTERING_MODIFY_AVISO);
+					printf(ENTERING_CREATE_AVISO);
 					aviso_createAviso(avisos, QTY_AVISOS, clientes, QTY_CLIENTES);
 				}
 				else

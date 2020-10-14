@@ -66,8 +66,10 @@ int informe_printAllClientes(Cliente* listClientes, int lenClientes, Aviso* list
 	   listClientes != NULL &&
 	   lenClientes > 0)
 	{
+		printf(PRINT_ONE_CLIENTE_ADD_AVISO_TOP);
 		for (i = 0; i < lenClientes;i++)
 		{
+
 			if(listClientes[i].isEmpty == FALSE)
 			{
 				bufferCantidad = informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, listClientes[i].idCliente);
@@ -77,6 +79,7 @@ int informe_printAllClientes(Cliente* listClientes, int lenClientes, Aviso* list
 				}
 			}
 		}
+		printf(PRINT_ONE_CLIENTE_ADD_AVISO_BOTTOM);
 		retorno = 0;
 	}
 	return retorno;
@@ -155,6 +158,7 @@ int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso*
 		auxiliar_sortByCantAvisos(listaClientesAvisos, lenClientes, UP);
 		printf(HIGH_CLIENTE_TOP);
 		maxnumAvisos = listaClientesAvisos[0].cantidadAvisos;
+		printf(PRINT_ONE_CLIENTE_ADD_AVISO_TOP);
 		while(listaClientesAvisos[i].cantidadAvisos == maxnumAvisos)
 		{
 			index = cliente_findClienteById(listClientes, lenClientes, listaClientesAvisos[i].id);
@@ -162,7 +166,7 @@ int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso*
 			printf(PRINT_ONE_CLIENTE_ADD_AVISO,clienteMayorAvisos.idCliente,clienteMayorAvisos.nombre,clienteMayorAvisos.apellido,clienteMayorAvisos.cuit,informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, clienteMayorAvisos.idCliente));
 			i++;
 		}
-
+		printf(PRINT_ONE_CLIENTE_ADD_AVISO_BOTTOM);
 		retorno = 0;
 	}
 	return retorno;

@@ -221,6 +221,7 @@ int aviso_findAvisoById(Aviso* list, int lenAvisos,int id)
 				if(list[i].idAviso == id)
 				{
 					retorno = i;
+					break;
 				}
 			}
 		}
@@ -318,8 +319,9 @@ int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, 
 		{
 			idCliente = listAvisos[bufferIndex].idCliente;
 			printf(CHANGE_AVISO_CLIENTE);
+			printf(PRINT_ONE_REGISTRY_TOP);
 			cliente_printOneCliente(listClientes, lenClientes, idCliente);
-
+			printf(PRINT_ONE_REGISTRY_BOTTOM);
 			if(utn_getInt(&op, CONFIRM_CHANGE_STATUS, ERROR_GENERIC, 1, 2, ATTEMPTS) == 0)
 			{
 				if(op == 1)
@@ -401,23 +403,25 @@ int aviso_printAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente
 	char bufferEstado[LONG_NAME];
 	if(listAvisos != NULL && lenAvisos > 0)
 	{
-		printf(PRINT_REGISTRY_BY_ID_TOP,idCliente);
+		printf(PRINT_REGISTRY_BY_ID_TOP1,idCliente);
+		printf(PRINT_REGISTRY_BY_ID_TOP2);
 		for (i = 0; i < lenAvisos;i++)
+		{
+			if(listAvisos[i].isEmpty == FALSE && listAvisos[i].idCliente == idCliente)
 			{
-				if(listAvisos[i].isEmpty == FALSE && listAvisos[i].idCliente == idCliente)
+				if(listAvisos[i].isActive == TRUE)
 				{
-					if(listAvisos[i].isActive == TRUE)
-					{
-						strcpy(bufferEstado,"Activa");
-					}
-					else
-					{
-						strcpy(bufferEstado,"Pausada");
-					}
-					printf(PRINT_ONE_REGISTRY_BY_ID,listAvisos[i].idAviso, listAvisos[i].contenido,bufferEstado);
-					cantidadAvisosImpresos++;
+					strcpy(bufferEstado,"Activa");
 				}
+				else
+				{
+					strcpy(bufferEstado,"Pausada");
+				}
+				printf(PRINT_ONE_REGISTRY_BY_ID,listAvisos[i].idAviso, listAvisos[i].contenido,bufferEstado);
+				cantidadAvisosImpresos++;
 			}
+		}
+		printf(PRINT_REGISTRY_BY_ID_BOTTOM);
 		if (cantidadAvisosImpresos == 0)
 		{
 			printf(PRINT_REGISTRY_NO_RESULTS);

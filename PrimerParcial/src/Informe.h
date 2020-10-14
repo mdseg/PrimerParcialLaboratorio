@@ -5,13 +5,16 @@
  *      Author: marcos
  */
 
-#ifndef INFORME_H_
-#define INFORME_H_
+#ifndef INFORME_H_3
+#define INFORME_H_7
+
 
 #define UP 1
 #define DOWN 0
 
-#define PRINT_ONE_CLIENTE_ADD_AVISO "ID: %d - Nombre: %s - Apellido: %s - CUIT: %s - Cantidad de avisos contratados: %d\n"
+#define PRINT_ONE_CLIENTE_ADD_AVISO_TOP "--ID-------Nombre------------------Apellido-------------------CUIT-------------Cantidad de avisos activos------\n"
+#define PRINT_ONE_CLIENTE_ADD_AVISO_BOTTOM "---------------------------------------------------------------------------------------------------------------\n"
+#define PRINT_ONE_CLIENTE_ADD_AVISO "|%-4d |%-24s| %-24s| %-16s| %-32d |\n"
 #define ENTERING_CLIENTE_LIST "Ingresando al listado de todos los clientes.\n"
 #define PRINT_COUNT_AVISOS_PAUSADOS "La cantidad de avisos pausados es de: %d\n"
 #define HIGH_AVISOS_RUBRO "Rubro: %d\n"

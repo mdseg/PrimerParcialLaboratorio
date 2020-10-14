@@ -73,8 +73,10 @@
 
 #define ERROR_NOT_AVAILABLE "Debe ingresar al menos un registro para utilizar esta funcionalidad.\n"
 
-#define PRINT_REGISTRY_BY_ID_TOP "Avisos contratados para el usuario con ID: %d\n"
-#define PRINT_ONE_REGISTRY_BY_ID "ID: %d - Contenido: %s - Estado: %s\n"
+#define PRINT_REGISTRY_BY_ID_TOP1 "Avisos contratados para el usuario con ID: %d\n"
+#define PRINT_REGISTRY_BY_ID_TOP2 "--ID-------Contenido------------------------------------------------------------Estado------------------\n"
+#define PRINT_REGISTRY_BY_ID_BOTTOM "--------------------------------------------------------------------------------------------------------\n"
+#define PRINT_ONE_REGISTRY_BY_ID "|%-4d |%-70s| %-24s|\n"
 #define PRINT_REGISTRY_NO_RESULTS "El cliente no tiene publicidades contratadas.\n"
 
 #define DELETE_REGISTRY_NO_RESULTS "El cliente no tiene publicidades contratadas para eliminar.\n"

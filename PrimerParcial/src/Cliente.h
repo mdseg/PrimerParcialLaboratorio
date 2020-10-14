@@ -57,7 +57,9 @@
 
 
 #define ERROR_NOT_AVAILABLE "Debe ingresar al menos un registro para utilizar esta funcionalidad.\n"
-#define PRINT_ONE_REGISTRY "ID: %d - Nombre: %s - Apellido: %s - CUIT: %s\n"
+#define PRINT_ONE_REGISTRY "|%-4d |%-24s| %-24s| %-24s |\n"
+#define PRINT_ONE_REGISTRY_TOP "--ID-------Nombre---------------------Apellido---------------------CUIT--------------\n"
+#define PRINT_ONE_REGISTRY_BOTTOM "-------------------------------------------------------------------------------------\n"
 #define EXIT_PROGRAM "Saliendo de la aplicación...\n"
 
 struct

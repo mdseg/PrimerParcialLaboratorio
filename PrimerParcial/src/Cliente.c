@@ -27,37 +27,22 @@ static int cliente_isRepeatCuit(Cliente* list, int len, char* cuit);
 int cliente_unsuscribeCliente(Cliente* list, int len, int idCliente)
 {
 	int retorno = -1;
-	int scanOp;
 	if(cliente_checkActiveClientes(list, len) == 0)
 	{
-		if(utn_getInt(&scanOp, DELETE_CLIENTE_CONFIRM, ERROR_GENERIC, 1, 2, ATTEMPTS) == 0
-			)
-		{
-			if(scanOp == 1)
-			{
-				cliente_removeCliente(list, QTY_CLIENTES, idCliente);
-				printf(DELETE_CLIENTE_SUCCESS);
-				retorno = 1;
-			}
-			else
-			{
-				printf(DELETE_CLIENTE_CANCEL);
-				retorno = 0;
-			}
-
-		}
-		else
-		{
-			printf(DELETE_CLIENTE_ERROR);
-		}
+		cliente_removeCliente(list, QTY_CLIENTES, idCliente);
+		printf(DELETE_CLIENTE_SUCCESS);
+		retorno = 0;
 	}
 	else
 	{
-		printf(ERROR_NOT_AVAILABLE);
+		printf(DELETE_CLIENTE_ERROR);
 	}
-
 	return retorno;
 }
+
+
+
+
 /** \brief show a menu to change Cliente nombre, apellido or CUIT
 * \param list Cliente*
 * \param len int len of the Cliente* list
@@ -133,6 +118,7 @@ int cliente_modifyCliente(Cliente* list, int len)
 			if(flagCarga == TRUE)
 			{
 				list[index] = bufferCliente;
+				printf(MODIFY_CLIENTE_SUCCESS);
 				retorno = 0;
 			}
 		}
@@ -195,6 +181,7 @@ int cliente_printClientes(Cliente* list, int length)
 	int flagResults = FALSE;
 	if (list != NULL && length > 0)
 	{
+		printf(PRINT_ONE_REGISTRY_TOP);
 		for(i = 0; i < length; i++)
 		{
 			if(list[i].isEmpty == 0)
@@ -208,6 +195,7 @@ int cliente_printClientes(Cliente* list, int length)
 
 			}
 		}
+		printf(PRINT_ONE_REGISTRY_BOTTOM);
 	}
  return retorno;
 }
