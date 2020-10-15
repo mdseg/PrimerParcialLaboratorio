@@ -14,13 +14,15 @@
 
 static int auxiliar_searchFreeIndex(Auxiliar* list,int* pIndex, int lenClientes);
 static int auxiliar_init(Auxiliar* list, int lenClientes);
-static int auxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos, Auxiliar* listAuxiliar);
+int auxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos, Auxiliar* listAuxiliar, int filtroBusqueda);
 static int auxiliar_sortByCantAvisos(Auxiliar* list, int lenClientes, int order);
 static int auxiliar_isInArray(Auxiliar* listAuxiliar, int lenAuxiliar, int inputInt);
 static int auxiliar_uploadRubros(Auxiliar* listRubros, int lenRubros , Aviso* listAvisos, int lenAvisos);
 static int auxiliar_calculateNumAvisosRubro(Aviso* listAvisos, int lenAvisos, Auxiliar* listAuxiliar, int lenAuxiliar);
 
-
+#define ACTIVOS 0
+#define PAUSADOS 1
+#define TODOS 2
 
 /** \brief returns the sum of Avisos related an one Client
 *
@@ -30,7 +32,7 @@ static int auxiliar_calculateNumAvisosRubro(Aviso* listAvisos, int lenAvisos, Au
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - The sum if Ok
 *
 */
-int informe_calculateNumAvisosOneCliente(Aviso* listAvisos, int lenAvisos, int idCliente)
+int informe_calculateNumAvisosOneCliente(Aviso* listAvisos, int lenAvisos, int idCliente, int filtroBusqueda)
 {
 	int retorno = -1;
 	int cantidadAvisos = 0;
@@ -39,10 +41,28 @@ int informe_calculateNumAvisosOneCliente(Aviso* listAvisos, int lenAvisos, int i
 	{
 		for (i = 0; i < lenAvisos;i++)
 			{
-				if(listAvisos[i].isEmpty == FALSE && listAvisos[i].isActive == TRUE && listAvisos[i].idCliente == idCliente)
+				switch(filtroBusqueda)
 				{
-					cantidadAvisos++;
+				case ACTIVOS:
+					if(listAvisos[i].isEmpty == FALSE && listAvisos[i].isActive == TRUE && listAvisos[i].idCliente == idCliente)
+					{
+						cantidadAvisos++;
+					}
+					break;
+				case PAUSADOS:
+					if(listAvisos[i].isEmpty == FALSE && listAvisos[i].isActive == FALSE && listAvisos[i].idCliente == idCliente)
+					{
+						cantidadAvisos++;
+					}
+					break;
+				case TODOS:
+					if(listAvisos[i].isEmpty == FALSE && listAvisos[i].idCliente == idCliente)
+					{
+						cantidadAvisos++;
+					}
+					break;
 				}
+
 			}
 		retorno = cantidadAvisos;
 	}
@@ -72,7 +92,7 @@ int informe_printAllClientes(Cliente* listClientes, int lenClientes, Aviso* list
 
 			if(listClientes[i].isEmpty == FALSE)
 			{
-				bufferCantidad = informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, listClientes[i].idCliente);
+				bufferCantidad = informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, listClientes[i].idCliente,TODOS);
 				if(bufferCantidad != -1)
 				{
 					printf(PRINT_ONE_CLIENTE_ADD_AVISO,listClientes[i].idCliente,listClientes[i].nombre,listClientes[i].apellido,listClientes[i].cuit,bufferCantidad);
@@ -137,7 +157,7 @@ int informe_printCountAvisosPausados(Aviso* listAvisos, int lenAvisos)
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
 */
-int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos)
+int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos, int filtroBusqueda)
 {
 	int retorno = -1;
 	int i = 0;
@@ -153,7 +173,7 @@ int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso*
 		// Inicializar lista auxiliar
 		auxiliar_init(listaClientesAvisos, lenClientes);
 		// Calcular cantidad de avisos de cada cliente
-		auxiliar_calculateNumAvisos(listClientes, lenClientes, listAvisos, lenAvisos, listaClientesAvisos);
+		auxiliar_calculateNumAvisos(listClientes, lenClientes, listAvisos, lenAvisos, listaClientesAvisos,filtroBusqueda);
 		//Ordenar lista
 		auxiliar_sortByCantAvisos(listaClientesAvisos, lenClientes, UP);
 		printf(HIGH_CLIENTE_TOP);
@@ -163,7 +183,7 @@ int informe_findClienteMoreAvisos(Cliente* listClientes, int lenClientes, Aviso*
 		{
 			index = cliente_findClienteById(listClientes, lenClientes, listaClientesAvisos[i].id);
 			clienteMayorAvisos = listClientes[index];
-			printf(PRINT_ONE_CLIENTE_ADD_AVISO,clienteMayorAvisos.idCliente,clienteMayorAvisos.nombre,clienteMayorAvisos.apellido,clienteMayorAvisos.cuit,informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, clienteMayorAvisos.idCliente));
+			printf(PRINT_ONE_CLIENTE_ADD_AVISO,clienteMayorAvisos.idCliente,clienteMayorAvisos.nombre,clienteMayorAvisos.apellido,clienteMayorAvisos.cuit,informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, clienteMayorAvisos.idCliente,filtroBusqueda));
 			i++;
 		}
 		printf(PRINT_ONE_CLIENTE_ADD_AVISO_BOTTOM);
@@ -205,7 +225,7 @@ int auxiliar_init(Auxiliar* list, int lenClientes)
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-int auxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos, Auxiliar* listAuxiliar)
+int auxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, Aviso* listAvisos, int lenAvisos, Auxiliar* listAuxiliar, int filtroBusqueda)
 {
 	int retorno = -1;
 	int i;
@@ -220,7 +240,7 @@ int auxiliar_calculateNumAvisos(Cliente* listClientes, int lenClientes, Aviso* l
 		{
 			if(listClientes[i].isEmpty == FALSE)
 			{
-				bufferCantAvisos = informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, listClientes[i].idCliente);
+				bufferCantAvisos = informe_calculateNumAvisosOneCliente(listAvisos, lenAvisos, listClientes[i].idCliente, filtroBusqueda);
 				auxiliar_searchFreeIndex(listAuxiliar, &index, lenClientes);
 				listAuxiliar[index].id = listClientes[i].idCliente;
 				listAuxiliar[index].cantidadAvisos = bufferCantAvisos;

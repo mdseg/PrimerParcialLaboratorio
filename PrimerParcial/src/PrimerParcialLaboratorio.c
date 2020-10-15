@@ -18,11 +18,13 @@
 #include "Informe.h"
 
 #define MAIN_MENU "\n-------Sistema de Registro de Clientes y Avisos ----------\nElija una de estas opciones:\n1-Alta de Cliente\n2-Modificar datos de cliente\n3-Baja de Cliente\n4-Publicar\n5-Pausar aviso\n6-Renaudar aviso\n7-Imprimir Clientes\n8-Informar\n9-SALIR\n"
-#define MENU_REPORT "-------Menu de reporte----------\nSeleccione el tipo de informe deseado:\n1-Cliente con más avisos\n2-Cantidad de avisos pausados\n3-Rubro con mas avisos\n4-Volver al menú anterior\n"
+#define MENU_REPORT "-------Menu de reporte----------\nSeleccione el tipo de informe deseado:\n1-Cliente con más avisos\n2-Cantidad de avisos pausados\n3-Rubro con mas avisos\n4-Cliente con mayor cantidad de avisos activos.\n5-Cliente con mayor cantidad de avisos pausados.\n6-Volver al menú anterior\n"
 #define ERROR_MENU "Por favor, elija una opción válida.\n"
 #define EXIT_PROGRAM "Saliendo de la aplicación...\n"
 
-
+#define ACTIVOS 0
+#define PAUSADOS 1
+#define TODOS 2
 
 int crearListaInicial(Aviso* avisos, int lenAvisos, Cliente* clientes, int lenClientes);
 
@@ -136,14 +138,14 @@ int main(void) {
 				if(cliente_checkActiveClientes(clientes, QTY_CLIENTES) == 0)
 				{
 					do{
-						if(utn_getInt(&opSecundario, MENU_REPORT, MENU_SELECT_ERROR, 1, 4, ATTEMPTS) == 0)
+						if(utn_getInt(&opSecundario, MENU_REPORT, MENU_SELECT_ERROR, 1, 6, ATTEMPTS) == 0)
 						{
 							switch (opSecundario)
 							{
 								case 1:
 									if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0)
 									{
-										informe_findClienteMoreAvisos(clientes, QTY_CLIENTES, avisos, QTY_AVISOS);
+										informe_findClienteMoreAvisos(clientes, QTY_CLIENTES, avisos, QTY_AVISOS,TODOS);
 									}
 									break;
 								case 2:
@@ -158,10 +160,22 @@ int main(void) {
 										informe_findRubroMoreAvisos(avisos, QTY_AVISOS);
 									}
 									break;
+								case 4:
+									if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0)
+									{
+										informe_findClienteMoreAvisos(clientes, QTY_CLIENTES, avisos, QTY_AVISOS,ACTIVOS);
+									}
+									break;
+								case 5:
+									if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0)
+									{
+										informe_findClienteMoreAvisos(clientes, QTY_CLIENTES, avisos, QTY_AVISOS,PAUSADOS);
+									}
+									break;
 							}
 						}
 					}
-					while (opSecundario != 4);
+					while (opSecundario != 6);
 				}
 				else
 				{
