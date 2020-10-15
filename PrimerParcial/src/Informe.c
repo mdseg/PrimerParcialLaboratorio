@@ -26,9 +26,9 @@ static int auxiliar_calculateNumAvisosRubro(Aviso* listAvisos, int lenAvisos, Au
 
 /** \brief returns the sum of Avisos related an one Client
 *
-* \param Aviso* listAvisos
-* \param int lenAvisos
-* \param int idCliente its the ID from the Client
+* \param listAvisos Aviso*
+* \param lenAvisos int
+* \param idCliente int its the ID from the Client
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - The sum if Ok
 *
 */
@@ -70,9 +70,9 @@ int informe_calculateNumAvisosOneCliente(Aviso* listAvisos, int lenAvisos, int i
 }
 /** \brief prints calculate the sum of Avisos related an one Client
 *
-* \param Aviso* listAvisos
-* \param int lenAvisos
-* \param int idCliente its the ID from the Client
+* \param istAvisos Aviso* l
+* \param lenAvisos int
+* \param idCliente int its the ID from the Client
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
 */
@@ -106,8 +106,8 @@ int informe_printAllClientes(Cliente* listClientes, int lenClientes, Aviso* list
 }
 /** \brief prints calculate the sum of Avisos with isActive value setted "FALSE" in an Aviso list
 *
-* \param Aviso* listAvisos
-* \param int lenAvisos
+* \param listAvisos Aviso*
+* \param lenAvisos int
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - The Sum if Ok
 *
 */
@@ -131,8 +131,8 @@ int informe_countAvisosPausados(Aviso* listAvisos, int lenAvisos)
 }
 /** \brief prints the sum of Avisos with isActive value setted "FALSE" in an Aviso list calling a static function
 *
-* \param Aviso* listAvisos
-* \param int lenAvisos
+* \param listAvisos Aviso*
+* \param lenAvisos int
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
 */
@@ -150,10 +150,10 @@ int informe_printCountAvisosPausados(Aviso* listAvisos, int lenAvisos)
 	return retorno;
 }
 /** \brief prints the client's information with more Avisos related
-* \param Aviso* listAvisos
-* \param int lenAvisos
-* \param Aviso* listAvisos
-* \param int lenAvisos
+* \param listAvisos Aviso*
+* \param lenAvisos int
+* \param listAvisos Aviso*
+* \param lenAvisos int
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
 */
@@ -217,11 +217,11 @@ int auxiliar_init(Auxiliar* list, int lenClientes)
 }
 /** \brief recives an Client array and calculates the count of Avisos related to each Cliente
  * position of the array and set a non-range number in idCliente
- * \param Cliente* listClientes
- * \param int lenClientes
- * \param Aviso* listAvisos
- * \param int lenAvisos
- * \param Auxiliar* listAuxiliar this list is used to storage the sum of avisos related to an Client
+ * \param listClientes Cliente*
+ * \param lenClientes int
+ * \param listAvisos Aviso*
+ * \param lenAvisos int
+ * \param listAuxiliar Auxiliar* this list is used to storage the sum of avisos related to an Client
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
@@ -280,8 +280,8 @@ static int auxiliar_searchFreeIndex(Auxiliar* list,int* pIndex, int lenClientes)
 }
 /** \brief sort an Auxiliar list ordering by cantidadAvisos
 *
-* \param Auxiliar* list
-* \param int lenClientes
+* \param list Auxiliar*
+* \param lenClientes int
 * \param order int [1] indicate UP - [0] indicate DOWN
 * \return int Return (-1) if Error [Invalid lenAvisosgth or NULL pointer] - (0) if Ok
 *
@@ -320,9 +320,9 @@ static int auxiliar_sortByCantAvisos(Auxiliar* list, int lenClientes, int order)
 }
 /** \brief recibe an int an search it in a Aviso list
 *
-* \param Auxiliar* list
-* \param int lenAvisos
-* \param int rubro its the value to search in this function
+* \param list Auxiliar*
+* \param lenAvisos int
+* \param rubro int its the value to search in this function
 * \return int Return (-1) if Error [Invalid lenAvisosgth or NULL pointer] - (the amount of Aviso related to rubro) if Ok
 *
 */
@@ -346,8 +346,8 @@ int informe_calculateNumAvisosOneRubro(Aviso* listAvisos, int lenAvisos, int rub
 }
 /** \brief calculate the Rubro with the most aomunt of Avisos using statics functions
 *
-* \param Aviso* listAvisos
-* \param int lenAvisos
+* \param listAvisos Aviso*
+* \param lenAvisos int
 * \return int Return (-1) if Error [Invalid lenAvisosgth or NULL pointer] - (0) if Ok
 *
 */
@@ -381,10 +381,10 @@ int informe_findRubroMoreAvisos(Aviso* listAvisos, int lenAvisos)
 	return retorno;
 }
 /** \brief select distinct the values of rubro present in a Aviso list and storages it in listRubros
-* \param Auxiliar* listRubros
-* \param int lenRubros
-* \param Aviso* listAvisos
-* \param int lenAvisos
+* \param listRubros Auxiliar*
+* \param lenRubros int
+* \param listAvisos Aviso*
+* \param lenAvisos int
 * \return int Return (-1) if Error [Invalid lenAvisosgth or NULL pointer] - (0) if Ok
 *
 */
@@ -411,10 +411,10 @@ static int auxiliar_uploadRubros(Auxiliar* listRubros, int lenRubros , Aviso* li
 	return retorno;
 }
 /** \brief verify if an value is a valid Id in listAuxiliar
-* \param Auxiliar* listRubros
-* \param int lenRubros
-* \param Aviso* listAvisos
-* \param int lenAvisos
+* \param listRubros Auxiliar*
+* \param lenRubros int
+* \param listAvisos Aviso*
+* \param lenAvisos int
 * \return int Return (0) if No results - (1) if it's present
 */
 static int auxiliar_isInArray(Auxiliar* listAuxiliar, int lenAuxiliar, int inputInt)
@@ -437,11 +437,11 @@ static int auxiliar_isInArray(Auxiliar* listAuxiliar, int lenAuxiliar, int input
 }
 /** \brief returns the sum of Avisos related an one rubro in Auxiliar
 *
-* \param Aviso* listAvisos
-* \param int lenAvisos
-* \param Auxiliar* listAuxiliar
-* \param int lenAuxiliar
-* \param int idCliente its the ID from the Client
+* \param listAvisos Aviso*
+* \param lenAvisos int
+* \param listAuxiliar Auxiliar*
+* \param lenAuxiliar int
+* \param idCliente int its the ID from the Client
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - The sum if Ok
 *
 */

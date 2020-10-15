@@ -192,10 +192,10 @@ int main(void) {
 }
 /** \brief crea una lista de clientes y avisos relacionados para poder realizar pruebas mas facilmente
 *
-* \param Aviso* avisos
-* \param int lenAvisos
-* \param Cliente* clientes
-* \param int lenClientes
+* \param avisos Aviso*
+* \param lenAvisos int
+* \param clientes Cliente*
+* \param lenClientes int
 
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
