@@ -59,7 +59,7 @@ int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, in
 	Aviso bufferAviso;
 
 
-	if(utn_getInt(&id, INPUT_IDAVISO, ERROR_GENERIC, ID_MIN, ID_MAX, 2) == 0)
+	if(utn_getInt(&id, INPUT_IDAVISO, ERROR_IDAVISO, ID_MIN, ID_MAX, 2) == 0)
 	{
 		index = aviso_findAvisoById(listAviso, QTY_AVISOS, id);
 
@@ -72,7 +72,7 @@ int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, in
 				switch (op)
 				{
 					case 1:
-						if(utn_getInt(&bufferRubro, INPUT_IDAVISO, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0)
+						if(utn_getInt(&bufferRubro, INPUT_IDAVISO, ERROR_RUBRO, ID_MIN, ID_MAX, ATTEMPTS) == 0)
 						{
 							bufferAviso.rubro = bufferRubro;
 							flagCarga = TRUE;
@@ -96,7 +96,7 @@ int aviso_modifyAviso(Aviso* listAviso, int lenAvisos, Cliente* listClientes, in
 						}
 						break;
 					case 3:
-						if(utn_getInt(&bufferIdCliente, INPUT_IDCLIENTE, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 && cliente_findClienteById(listClientes, lenClientes, bufferIdCliente) != 1)
+						if(utn_getInt(&bufferIdCliente, INPUT_IDCLIENTE, ERROR_IDCLIENTE, ID_MIN, ID_MAX, ATTEMPTS) == 0 && cliente_findClienteById(listClientes, lenClientes, bufferIdCliente) != 1)
 						{
 							bufferAviso.idCliente = bufferIdCliente;
 							flagCarga = TRUE;
@@ -135,11 +135,11 @@ int aviso_createAviso(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, i
 	int index;
 	if(aviso_searchFreeIndex(listAvisos, &index, lenAvisos) == 0 &&
 		cliente_printClientes(listClientes, lenClientes) == 0 &&
-		utn_getInt(&idCliente, INPUT_IDCLIENTE, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 &&
+		utn_getInt(&idCliente, INPUT_IDCLIENTE, ERROR_IDCLIENTE, ID_MIN, ID_MAX, ATTEMPTS) == 0 &&
 		cliente_findClienteById(listClientes, lenClientes, idCliente) != -1
 		)
 	{
-		if(utn_getInt(&rubro, INPUT_RUBRO, ERROR_GENERIC, RUBRO_MIN, RUBRO_MAX, ATTEMPTS) == 0 &&
+		if(utn_getInt(&rubro, INPUT_RUBRO, ERROR_RUBRO, RUBRO_MIN, RUBRO_MAX, ATTEMPTS) == 0 &&
 			utn_getString(INPUT_CONTENIDO, ERROR_GENERIC, contenido, ATTEMPTS, LONG_NAME) == 0 )
 		{
 			id = generateNewId();
@@ -464,6 +464,34 @@ int aviso_deleteAllAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCli
 			}
 			retorno = 0;
 		}
+	return retorno;
+}
+int aviso_printAllAvisos(Aviso* listAvisos, int lenAvisos)
+{
+	int retorno = -1;
+	int i = 0;
+	char bufferEstado[LONG_NAME];
+	if(listAvisos != NULL && lenAvisos > 0)
+	{
+		printf(PRINT_REGISTRY_BY_ID_TOP2);
+		for (i = 0; i < lenAvisos;i++)
+		{
+			if(listAvisos[i].isEmpty == FALSE)
+			{
+				if(listAvisos[i].isActive == TRUE)
+				{
+					strcpy(bufferEstado,"Activa");
+				}
+				else
+				{
+					strcpy(bufferEstado,"Pausada");
+				}
+			printf(PRINT_ONE_REGISTRY_BY_ID,listAvisos[i].idAviso, listAvisos[i].contenido,bufferEstado);
+			}
+		}
+		printf(PRINT_REGISTRY_BY_ID_BOTTOM);
+		retorno = 0;
+	}
 	return retorno;
 }
 

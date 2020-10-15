@@ -30,10 +30,12 @@
 #define MENU_SELECT_ERROR "Por favor, elija una opción valida.\n"
 
 #define INPUT_IDAVISO "Ingrese el Id del aviso:\n"
-#define INPUT_RUBRO "Ingrese el rubro:\n"
+#define INPUT_RUBRO "Ingrese el rubro (los valores válidos van de 1-30):\n"
 #define INPUT_CONTENIDO "Ingrese el contenido del aviso:\n"
 #define INPUT_CUIT_AVISO "Ingrese el Cuit del aviso:\n"
 #define INPUT_IDCLIENTE "Ingrese el ID del cliente.\n"
+#define ERROR_IDAVISO "Por favor, ingrese un Id del aviso válido.\n"
+#define ERROR_RUBRO "Por favor, ingrese un valor de rubro válido.\n"
 
 //Create
 #define CREATE_AVISO_SUCCESS "Aviso creado con éxito con ID: %d"
@@ -104,5 +106,5 @@ int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, 
 int aviso_altaForzada(int rubro, char* contenido, int isActive, int idCliente, Aviso* list, int lenAviso);
 int aviso_deleteAllAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente);
 int aviso_printAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente);
-
+int aviso_printAllAvisos(Aviso* listAvisos, int lenAvisos);
 #endif /* AVISO_H_ */

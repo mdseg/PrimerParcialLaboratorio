@@ -19,34 +19,26 @@
 
 #define MAIN_MENU "\n-------Sistema de Registro de Clientes y Avisos ----------\nElija una de estas opciones:\n1-Alta de Cliente\n2-Modificar datos de cliente\n3-Baja de Cliente\n4-Publicar\n5-Pausar aviso\n6-Renaudar aviso\n7-Imprimir Clientes\n8-Informar\n9-SALIR\n"
 #define MENU_REPORT "-------Menu de reporte----------\nSeleccione el tipo de informe deseado:\n1-Cliente con más avisos\n2-Cantidad de avisos pausados\n3-Rubro con mas avisos\n4-Volver al menú anterior\n"
+#define ERROR_MENU "Por favor, elija una opción válida.\n"
+#define EXIT_PROGRAM "Saliendo de la aplicación...\n"
+
+
+
+int crearListaInicial(Aviso* avisos, int lenAvisos, Cliente* clientes, int lenClientes);
 
 int main(void) {
 	int op;
 	int opSecundario;
+	int opcionConfirmar;
 	Cliente clientes[QTY_CLIENTES];
 	Aviso avisos[QTY_AVISOS];
 	int idElegida;
 	cliente_initClientes(clientes, QTY_CLIENTES);
 	aviso_initAvisos(avisos, QTY_AVISOS);
-
-	cliente_altaForzada("Jorge Ismael Dario", "Jesus", "20358638628", clientes, QTY_CLIENTES);
-	cliente_altaForzada("Maria", "Damonte", "27229381828", clientes, QTY_CLIENTES);
-	cliente_altaForzada("Fernando", "Fleitas", "20235838321", clientes, QTY_CLIENTES);
-
-	aviso_altaForzada(2, "Aviso de prueba", TRUE, 1, avisos, QTY_AVISOS);
-	aviso_altaForzada(2, "Se vende auto. 4 puertas con excelente vista a la calle", TRUE, 1, avisos, QTY_AVISOS);
-	aviso_altaForzada(2, "Pinto casas a domicilio", TRUE, 1, avisos, QTY_AVISOS);
-	aviso_altaForzada(3, "Plomero y gasista", TRUE, 2, avisos, QTY_AVISOS);
-	aviso_altaForzada(3, "Enfermero", TRUE, 2, avisos, QTY_AVISOS);
-	aviso_altaForzada(3, "Alquilo balcones", TRUE, 3, avisos, QTY_AVISOS);
-	aviso_altaForzada(4, "Se necesita empleado urgente", TRUE, 3, avisos, QTY_AVISOS);
-
-
-	printf("|%-24s| %-24s| %-16s| %-4d | %-21d|\n",clientes[0].apellido,clientes[0].nombre,clientes[0].cuit,clientes[0].idCliente,4);
-	printf("|%-24s| %-24s| %-16s| %-4d | %-21d|\n",clientes[1].apellido,clientes[1].nombre,clientes[1].cuit,clientes[1].idCliente,3);
+	crearListaInicial(avisos, QTY_AVISOS, clientes, QTY_CLIENTES);
 	do
 	{
-		utn_getInt(&op, MAIN_MENU, ERROR_GENERIC, 1, 9, ATTEMPTS);
+		utn_getInt(&op, MAIN_MENU, ERROR_MENU, 1, 9, ATTEMPTS);
 		switch(op)
 		{
 			case 1:
@@ -68,12 +60,12 @@ int main(void) {
 				if(cliente_checkActiveClientes(clientes, QTY_CLIENTES) == 0)
 				{
 					printf(ENTERING_REMOVE_CLIENTE);
-					if(utn_getInt(&opSecundario, INPUT_ID, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0 &&
+					if(cliente_printClientes(clientes, QTY_CLIENTES) == 0 && utn_getInt(&opSecundario, INPUT_ID, ERROR_IDCLIENTE, ID_MIN, ID_MAX, ATTEMPTS) == 0 &&
 						aviso_printAvisosByIdCliente(avisos, QTY_AVISOS, opSecundario) == 0)
 					{
-						if(utn_getInt(&opSecundario,DELETE_CLIENTE_CONFIRM, ERROR_GENERIC, 1, 2, ATTEMPTS) == 0)
+						if(utn_getInt(&opcionConfirmar,DELETE_CLIENTE_CONFIRM, ERROR_GENERIC, 1, 2, ATTEMPTS) == 0)
 						{
-							if(opSecundario == 1)
+							if(opcionConfirmar == 1)
 							{
 							aviso_deleteAllAvisosByIdCliente(avisos, QTY_AVISOS, opSecundario);
 							cliente_unsuscribeCliente(clientes, QTY_CLIENTES,opSecundario);
@@ -81,9 +73,8 @@ int main(void) {
 						}
 						else
 						{
-							printf("CANCELADO");
+							printf(DELETE_CLIENTE_CANCEL);
 						}
-
 					}
 				}
 				else
@@ -103,12 +94,13 @@ int main(void) {
 				}
 				break;
 			case 5:
-				if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0 &&
-					utn_getInt(&idElegida, INPUT_IDAVISO, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0)
+				if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0 && printf(ENTERING_PAUSE_AVISO) &&
+						aviso_printAllAvisos(avisos, QTY_AVISOS) == 0)
 				{
-					printf(ENTERING_PAUSE_AVISO);
-					aviso_changeStatus(avisos, QTY_AVISOS,clientes,QTY_CLIENTES, idElegida, TRUE);
-
+					if(utn_getInt(&idElegida, INPUT_IDAVISO, ERROR_IDAVISO, ID_MIN, ID_MAX, ATTEMPTS) == 0)
+					{
+						aviso_changeStatus(avisos, QTY_AVISOS,clientes,QTY_CLIENTES, idElegida, PAUSAR);
+					}
 				}
 				else
 				{
@@ -116,11 +108,13 @@ int main(void) {
 				}
 				break;
 			case 6:
-				if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0 &&
-					utn_getInt(&idElegida, INPUT_IDAVISO, ERROR_GENERIC, ID_MIN, ID_MAX, ATTEMPTS) == 0)
+				if(aviso_checkActiveAvisos(avisos, QTY_AVISOS) == 0 && printf(ENTERING_RESUME_AVISO) &&
+						aviso_printAllAvisos(avisos, QTY_AVISOS) == 0)
 				{
-					printf(ENTERING_RESUME_AVISO);
-					aviso_changeStatus(avisos, QTY_AVISOS,clientes,QTY_CLIENTES, idElegida, FALSE);
+					if(utn_getInt(&idElegida, INPUT_IDAVISO, ERROR_IDAVISO, ID_MIN, ID_MAX, ATTEMPTS) == 0)
+					{
+						aviso_changeStatus(avisos, QTY_AVISOS,clientes,QTY_CLIENTES, idElegida, RENAUDAR);
+					}
 				}
 				else
 				{
@@ -181,4 +175,31 @@ int main(void) {
 	}
 	while(op != 9);
 	return EXIT_SUCCESS;
+}
+/** \brief crea una lista de clientes y avisos relacionados para poder realizar pruebas mas facilmente
+*
+* \param Aviso* avisos
+* \param int lenAvisos
+* \param Cliente* clientes
+* \param int lenClientes
+
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*
+*/
+int crearListaInicial(Aviso* avisos, int lenAvisos, Cliente* clientes, int lenClientes)
+{
+	int retorno =  -1;
+	cliente_altaForzada("Jorge Ismael Dario", "Jesus", "20358638628", clientes, lenClientes);
+	cliente_altaForzada("Maria", "Damonte", "27229381828", clientes, lenClientes);
+	cliente_altaForzada("Fernando", "Fleitas", "20235838321", clientes, lenClientes);
+
+	aviso_altaForzada(2, "Aviso de prueba", TRUE, 1, avisos, lenAvisos);
+	aviso_altaForzada(2, "Se vende auto. 4 puertas con excelente vista a la calle", TRUE, 1, avisos, lenAvisos);
+	aviso_altaForzada(2, "Pinto casas a domicilio", TRUE, 1, avisos, lenAvisos);
+	aviso_altaForzada(3, "Plomero y gasista", TRUE, 2, avisos, lenAvisos);
+	aviso_altaForzada(3, "Enfermero", TRUE, 2, avisos, lenAvisos);
+	aviso_altaForzada(3, "Alquilo balcones", TRUE, 3, avisos, lenAvisos);
+	aviso_altaForzada(4, "Se necesita empleado urgente", TRUE, 3, avisos, lenAvisos);
+	retorno = 0;
+	return retorno;
 }

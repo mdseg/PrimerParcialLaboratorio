@@ -14,7 +14,6 @@
 
 static int generateNewId(void);
 static int cliente_removeCliente(Cliente* list, int len, int id);
-int cliente_printClientes(Cliente* list, int length);
 static int cliente_searchFreeIndex(Cliente* list,int* pIndex, int len);
 static int cliente_isRepeatCuit(Cliente* list, int len, char* cuit);
 
@@ -60,11 +59,11 @@ int cliente_modifyCliente(Cliente* list, int len)
 	char bufferCuit[LONG_NAME];
 
 	Cliente bufferCliente;
-
+	cliente_printClientes(list, len);
 
 	if(utn_getInt(&id, INPUT_ID, ERROR_GENERIC, 1, 1000, 2) == 0)
 	{
-		index = cliente_findClienteById(list, QTY_CLIENTES, id);
+		index = cliente_findClienteById(list, len, id);
 
 		if(index != -1)
 		{
@@ -75,7 +74,7 @@ int cliente_modifyCliente(Cliente* list, int len)
 				switch (op)
 				{
 					case 1:
-						if(utn_getName(INPUT_NAME,ERROR_GENERIC,bufferNombre, ATTEMPTS, LONG_NAME) == 0)
+						if(utn_getName(INPUT_NAME,ERROR_NAME,bufferNombre, ATTEMPTS, LONG_NAME) == 0)
 						{
 							utn_upperFirstCharArray(bufferNombre);
 							strcpy(bufferCliente.nombre,bufferNombre);
@@ -88,7 +87,7 @@ int cliente_modifyCliente(Cliente* list, int len)
 						}
 						break;
 					case 2:
-						if(utn_getName(INPUT_APELLIDO,ERROR_GENERIC,bufferApellido, ATTEMPTS, LONG_NAME) == 0)
+						if(utn_getName(INPUT_APELLIDO,ERROR_APELLIDO,bufferApellido, ATTEMPTS, LONG_NAME) == 0)
 						{
 							utn_upperFirstCharArray(bufferApellido);
 							strcpy(bufferCliente.apellido,bufferApellido);
@@ -101,7 +100,7 @@ int cliente_modifyCliente(Cliente* list, int len)
 						}
 						break;
 					case 3:
-						if(utn_getCuit(INPUT_CUIT, ERROR_GENERIC, bufferCuit, ATTEMPTS, LONG_NAME) == 0)
+						if(utn_getCuit(INPUT_CUIT, ERROR_CUIT, bufferCuit, ATTEMPTS, LONG_NAME) == 0)
 						{
 							strcpy(bufferCliente.cuit,bufferCuit);
 							flagCarga = TRUE;
@@ -140,9 +139,9 @@ int cliente_createCliente(Cliente* list, int len)
 	char cuit[LONG_NAME];
 	int index;
 	if(cliente_searchFreeIndex(list, &index, len) == 0 &&
-		utn_getName(INPUT_NAME,ERROR_GENERIC,nombre, ATTEMPTS, LONG_NAME) == 0 &&
-		utn_getName(INPUT_APELLIDO,ERROR_GENERIC,apellido, ATTEMPTS, LONG_NAME) == 0 &&
-		utn_getCuit(INPUT_CUIT, ERROR_GENERIC, cuit, ATTEMPTS, LONG_NAME) == 0
+		utn_getName(INPUT_NAME,ERROR_NAME,nombre, ATTEMPTS, LONG_NAME) == 0 &&
+		utn_getName(INPUT_APELLIDO,ERROR_APELLIDO,apellido, ATTEMPTS, LONG_NAME) == 0 &&
+		utn_getCuit(INPUT_CUIT, ERROR_CUIT, cuit, ATTEMPTS, LONG_NAME) == 0
 
 		)
 	{
@@ -418,3 +417,5 @@ static int cliente_isRepeatCuit(Cliente* list, int len, char* cuit)
 
 	return retorno;
 }
+
+

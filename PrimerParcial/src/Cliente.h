@@ -20,13 +20,15 @@
 #define MENU_MODIFY "-------Menu de modificación de Clientes----------\nSeleccione el campo a modificar:\n1-Nombre\n2-Apellido\n3-CUIT\n4-Volver al menú principal\n"
 #define MENU_SELECT_ERROR "Por favor, elija una opción valida.\n"
 
-
 #define ERROR_GENERIC "Error\n"
+#define ERROR_IDCLIENTE "Por favor, ingrese un ID de cliente válido.\n"
+#define ERROR_NAME "Por favor, ingrese un nombre válido.\n"
+#define ERROR_APELLIDO "Por favor, ingrese un apellido válido.\n"
+#define ERROR_CUIT "Por favor, ingrese un cuit válido.\n"
 #define INPUT_ID "Ingrese el Id:\n"
 #define INPUT_NAME "Ingrese el nombre:\n"
 #define INPUT_APELLIDO "Ingrese el apellido:\n"
 #define INPUT_CUIT "Ingrese el Cuit del cliente sin guiones (ej: 20358638628):\n"
-#define INPUT_DATOINT "Ingrese el datoInt.\n"
 
 //Create
 #define CREATE_CLIENTE_SUCCESS "Cliente creado con éxito con ID: %d"
@@ -60,7 +62,7 @@
 #define PRINT_ONE_REGISTRY "|%-4d |%-24s| %-24s| %-24s |\n"
 #define PRINT_ONE_REGISTRY_TOP "--ID-------Nombre---------------------Apellido---------------------CUIT--------------\n"
 #define PRINT_ONE_REGISTRY_BOTTOM "-------------------------------------------------------------------------------------\n"
-#define EXIT_PROGRAM "Saliendo de la aplicación...\n"
+
 
 struct
 {
@@ -81,6 +83,8 @@ int cliente_unsuscribeCliente(Cliente* list, int len, int idCliente);
 int cliente_printClientes(Cliente* list, int length);
 int cliente_altaForzada(char* nombre, char* apellido, char* cuit,Cliente* list, int len);
 int cliente_printOneCliente(Cliente* list, int len, int idCliente);
+
+
 
 #endif /* CLIENTE_H_ */
 
