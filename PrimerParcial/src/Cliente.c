@@ -39,12 +39,9 @@ int cliente_unsuscribeCliente(Cliente* list, int len, int idCliente)
 	return retorno;
 }
 
-
-
-
 /** \brief show a menu to change Cliente nombre, apellido or CUIT
 * \param list Cliente*
-* \param len int len of the Cliente* list
+* \param len int lenght of the Cliente* list
 * \return int Return (-1) if Error - (0) if Ok
 */
 int cliente_modifyCliente(Cliente* list, int len)

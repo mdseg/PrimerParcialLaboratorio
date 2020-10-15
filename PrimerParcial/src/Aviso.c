@@ -286,13 +286,12 @@ static int aviso_searchFreeIndex(Aviso* list,int* pIndex, int lenAvisos)
 			}
 		return retorno;
 }
-//Order TRUE activar FALSE desactivar
 /** \brief change the status of Aviso element
 *
-* \param Aviso* listAvisos
-* \param int lenAvisos
-* \param Cliente* listClientes
-* \param int lenClientes
+* \param listAvisos Aviso*
+* \param lenAvisos int
+* \param listClientes Cliente*
+* \param lenClientes int
 * \param order int [1] indicate UP - [0] indicate DOWN
 * \return int Return (-1) if Error [Invalid lenAvisosgth or NULL pointer] - (0) if Ok
 *
@@ -355,12 +354,12 @@ int aviso_changeStatus(Aviso* listAvisos, int lenAvisos, Cliente* listClientes, 
 }
 /** \brief create a Aviso registry directly
 *
-* \param int idAviso
-* \param int rubro
-* \param char* contenido
-* \param int isActive
-* \param Aviso* list
-* \param int lenAviso
+* \param idAviso int
+* \param rubro int
+* \param contenido char*
+* \param isActive int
+* \param list Aviso*
+* \param lenAviso int
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
 */
@@ -389,9 +388,9 @@ int aviso_altaForzada(int rubro, char* contenido, int isActive, int idCliente, A
 }
 /** \brief prints All avisos related with an idCliente
 *
-* \param Aviso* listAvisos
-* \param int lenAvisos
-* \param int idCliente its the ID from the Client
+* \param listAvisos Aviso*
+* \param lenAvisos int
+* \param idCliente int  its the ID from the Client
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
 */
@@ -433,9 +432,9 @@ int aviso_printAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCliente
 }
 /** \brief delete All avisos related with an idCliente
 *
-* \param Aviso* listAvisos
-* \param int lenAvisos
-* \param int idCliente its the ID from the Client
+* \param listAvisos Aviso*
+* \param lenAvisos int
+* \param idCliente int its the ID from the Client
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 *
 */
@@ -466,6 +465,13 @@ int aviso_deleteAllAvisosByIdCliente(Aviso* listAvisos, int lenAvisos, int idCli
 		}
 	return retorno;
 }
+/** \brief print All avisos of a Aviso list
+*
+* \param listAvisos Aviso*
+* \param lenAvisos int
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*
+*/
 int aviso_printAllAvisos(Aviso* listAvisos, int lenAvisos)
 {
 	int retorno = -1;

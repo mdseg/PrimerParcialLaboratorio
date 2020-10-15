@@ -26,7 +26,7 @@ int isValidFileName(char* array);
 
 /**
  * \brief verifica que una cadena de char incluya solo letras mayusculas y minusculas y también espacios.
- * \param pArray char es el puntero al array donde se hará la búsqueda.
+ * \param pArray* char es el puntero al array donde se hará la búsqueda.
  * \return 0 si Ok o -1 para indicar un error.
  */
 static int utn_verifyCharArray(char *pArray)
@@ -109,7 +109,7 @@ static int utn_countPointsArray(char pArray[])
 }
 /**
 * \brief ​ Verifica​ ​ si​ ​ la​ ​ cadena​ ​ ingresada​ ​ es​ un numero del tipo float
-* \​param​ ​ cadena​ ​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
+* \​param​ string char*​ ​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
 * \return ​ Retorna​ 1 (​ vardadero​ ) ​ si​ ​ la​ ​ cadena​ ​ es​ ​ float​ y 0 (​ falso​ ) ​ si​ no ​ lo​ ​ es
 */
 static int isFloat(char string[])
@@ -138,8 +138,8 @@ static int isFloat(char string[])
 /**
 * \brief Lee ​ de​ ​ stdin​ ​ hasta​ ​ que​ ​ encuentra​ ​ un​ '\n' o ​ hasta​ ​ que​ ​ haya​ ​ copiado​ ​ en​ ​ cadena
 *  un​ ​ máximo​ ​ de​ '​ longitud​ - 1' ​ caracteres​ .
-* \​param​ pResultado ​ Puntero​ ​ al​ ​ espacio​ ​ de​ ​ memoria​ ​ donde​ ​ se​ ​ copiara​ ​ la​ ​ cadena​ ​ obtenida
-* \​param​ ​ longitud​ Define el ​ tamaño​ ​ de​ ​ cadena
+* \​param​ array char*​ Puntero​ ​ al​ ​ espacio​ ​ de​ ​ memoria​ ​ donde​ ​ se​ ​ copiara​ ​ la​ ​ cadena​ ​ obtenida
+* \​param​ length Define el ​ tamaño​ ​ de​ ​ cadena
 * \return ​ Retorna​ 0 (EXITO) ​ si​ ​ se​ ​ obtiene​ ​ una​ ​ cadena​ y -1 (ERROR) ​ si​ no
 */
 static int utn_myGets(char* array, int length)
@@ -158,7 +158,7 @@ static int utn_myGets(char* array, int length)
 }
 /**
 * \brief ​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ numerica
-* \​ param​ pResultado ​ Puntero​ ​ al​ espacio​ ​ de​ ​ memoria​ ​ donde​ ​ se​ ​ dejara​ el ​ resultado​ ​ de​ ​ la​ ​ funcion
+* \​ param​ pResultado *int​ Puntero​ ​ al​ espacio​ ​ de​ ​ memoria​ ​ donde​ ​ se​ ​ dejara​ el ​ resultado​ ​ de​ ​ la​ ​ funcion
 * \return ​ Retorna​ 0 (EXITO) ​ si​ se​ ​ obtiene​ ​ un​ ​ numero​ ​ entero​ y -1 (ERROR) ​ si​ no
 */
 static int getInt(int* pResultado)
@@ -178,7 +178,7 @@ static int getInt(int* pResultado)
 }
 /**
 * \brief ​ Verifica​ ​ si​ ​ la​ ​ cadena​ ​ ingresada​ ​ es​ta compuesta por​ numeros del tipo int
-* \​param​ ​ cadena​ ​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
+* \​param​ ​ array char*​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
 * \return ​ Retorna​ 1 (​ vardadero​ ) ​ si​ ​ la​ ​ cadena​ ​ es​ ​ numerica​ y 0 (​ falso​ ) ​ si​ no ​ lo​ ​ es
 */
 static int utn_verifyNumArray(char* array)
@@ -205,8 +205,8 @@ static int utn_verifyNumArray(char* array)
 }
 /**
  * \brief Verifica una cadena como parametros para determinar si es un nombre valido
- * \param char* cadena, Cadena a analizar
- * \param int limite, indica la cantidad de letras maxima de la cadena
+ * \param array char* Cadena a analizar
+ * \param limit int indica la cantidad de letras maxima de la cadena
  * \return (0) Indicar que no es un nombre valido / (!0) INdica que es un nombre valido
  * */
 int utn_isValidName(char* array, int limit)
@@ -252,12 +252,12 @@ int utn_isValidName(char* array, int limit)
 }
 /**
 * \brief Solicita un entero al usuario
-* \param int* pResultado, puntero al espacio de memoria donde se dejará el valor obtenido.
-* \param char* mensaje, Es el mensaje a ser mostrado al usuario.
-* \param char* mensajeError, Es el mensaje de error a ser mostrado al usuario.
-* \param int minimo, valor minimo admitido
-* \param int maximo, valor maximo admitido
-* \param int reintentos, cantidad de oportunidades para ingresar el dato
+* \param pResultado int* puntero al espacio de memoria donde se dejará el valor obtenido.
+* \param mensaje char* Es el mensaje a ser mostrado al usuario.
+* \param mensajeError char* Es el mensaje de error a ser mostrado al usuario.
+* \param minimo int valor minimo admitido
+* \param maximo int valor maximo admitido
+* \param reintentos int cantidad de oportunidades para ingresar el dato
 * \return (-1) Error / (0) Ok
  */
 int utn_getInt(int* pResultado,char* mensaje,char* mensajeError,int minimo,int maximo,int reintentos)
@@ -288,12 +288,12 @@ int utn_getInt(int* pResultado,char* mensaje,char* mensajeError,int minimo,int m
 }
 /**
 * \brief Solicita un entero al usuario
-* \param char* msg, Es el mensaje a ser mostrado al usuario.
-* \param char* msgError, Es el mensaje de error a ser mostrado al usuario.
-** \param int* pResult, puntero al espacio de memoria donde se dejará el valor obtenido.
-* \param int attempts, cantidad de oportunidades para ingresar el dato
-* \param int min valor minimo admitido
-* \param int max valor maximo admitido
+* \param message char* Es el mensaje a ser mostrado al usuario.
+* \param errorMessage char* Es el mensaje de error a ser mostrado al usuario.
+** \param pResult int puntero al espacio de memoria donde se dejará el valor obtenido.
+* \param attempts int cantidad de oportunidades para ingresar el dato
+* \param min int valor minimo admitido
+* \param max int valor maximo admitido
 
 * \return (-1) Error / (0) Ok
  */
@@ -333,10 +333,11 @@ int utn_getFloat(char message[], char errorMessage[], float *pResult, int attemp
 	return retorno;
 }
 /* \ brief get_char para pedirle al usuario que ingrese un caracter
- * \ param char *message es un puntero al espacio de memoria donde está el mensaje que verá el usuario
- * \ param char *userInput es el puntero al espacio de memoria donde se guarda el caracter que ingresa el usuario
- * \ param char *errorMessage es el puntero al espacio de memoria donde está el mensaje de error que se mostrará si el usario ingresa una opción incorrecta
- * \ param int attempts es la variable que decrementa en 1 cada vez que el usario comete un error al ingresar un caracter no válido
+ * \ param message char* es un puntero al espacio de memoria donde está el mensaje que verá el usuario
+ * \ param userInput char* es el puntero al espacio de memoria donde se guarda el caracter que ingresa el usuario
+ * \ param errorMessage char* es el puntero al espacio de memoria donde está el mensaje de error que se mostrará si el usario ingresa una opción incorrecta
+ * \ param attempts int  es la variable que decrementa en 1 cada vez que el usario comete un error al ingresar un caracter no válido
+ * \return (-1) Error / (0) Ok
  */
 int utn_get_char(char *message, char *userInput, char errorMessage,int attempts)
 {
@@ -369,12 +370,12 @@ int utn_get_char(char *message, char *userInput, char errorMessage,int attempts)
 }
 /**
 * \brief Solicita un nombre al usuario y lo valida.
-* \param char* mensaje, Es el mensaje a ser mostrado al usuario.
-* \param char* mensajeError, Es el mensaje de error a ser mostrado al usuario.
-* \param char* pResultado, puntero al espacio de memoria donde se dejará el valor obtenido.
-* \param int minimo, valor minimo admitido
-* \param int maximo, valor maximo admitido
-* \param int reintentos, cantidad de oportunidades para ingresar el dato
+* \param message char* Es el mensaje a ser mostrado al usuario.
+* \param mensajeError char* Es el mensaje de error a ser mostrado al usuario.
+* \param pResultado char* puntero al espacio de memoria donde se dejará el valor obtenido.
+* \param minimo int valor minimo admitido
+* \param maximo int valor maximo admitido
+* \param reintentos int cantidad de oportunidades para ingresar el dato
 * \return (-1) Error / (0) Ok
  */
 int utn_getName(char* message, char* errorMessage, char* pResult, int attemps, int limit)
@@ -406,9 +407,9 @@ int utn_getName(char* message, char* errorMessage, char* pResult, int attemps, i
 }
 /**
  * \brief Buscar el valor máximo existente en un array de enteros.
- * \param pArray es el puntero al array donde se hará la busqueda.
- * \param pResultado es el puntero donde se almacena el valor máximo encontrado en el array
- * \param size Es la longitud del array.
+ * \param pArray int es el puntero al array donde se hará la busqueda.
+ * \param pResultado int es el puntero donde se almacena el valor máximo encontrado en el array
+ * \param size int Es la longitud del array.
  * \return 0 si Ok o -1 para indicar un error.
  */
 int utn_getMaximoArrayInt(int *pArray, int *pResultado, int size)
@@ -432,9 +433,9 @@ int utn_getMaximoArrayInt(int *pArray, int *pResultado, int size)
 }
 /**
  * \brief Buscar el valor mínimo existente en un array de enteros.
- * \param pArray es el puntero al array donde se hará la busqueda.
- * \param pResultado es el puntero donde se almacena el valor mínimo encontrado en el array
- * \param size Es la longitud del array.
+ * \param pArray int es el puntero al array donde se hará la busqueda.
+ * \param pResultado int es el puntero donde se almacena el valor mínimo encontrado en el array
+ * \param size int Es la longitud del array.
  * \return 0 si Ok o -1 para indicar un error.
  */
 int utn_getMinimoArrayInt(int *pArray, int *pResultado, int size)
@@ -458,9 +459,9 @@ int utn_getMinimoArrayInt(int *pArray, int *pResultado, int size)
 }
 /**
  * \brief realiza el promedio en un array de numeros enteros.
- * \param array[] es el puntero al array donde se hará la busqueda.
- * \param pResultado es el puntero donde se almacena el valor del promedio de todos los elementos del array.
- * \param size Es la longitud del array.
+ * \param array[] int es el puntero al array donde se hará la busqueda.
+ * \param pResultado float es el puntero donde se almacena el valor del promedio de todos los elementos del array.
+ * \param size int Es la longitud del array.
  * \return 0 si Ok o -1 para indicar un error.
  */
 int utn_promedioArray(int array[], float* pResultado, int size)
@@ -484,8 +485,8 @@ int utn_promedioArray(int array[], float* pResultado, int size)
 }
 /**
  * \brief Imprime a modo DEBUG la información de un array de enteros.
- * \param pArray es el puntero al array a ser ordenado.
- * \pram size Es la longitud del array.
+ * \param pArray int es el puntero al array a ser ordenado.
+ * \pram size int Es la longitud del array.
  * \return 0 si Ok o -1 para indicar un error.
  */
 int utn_printArrayInt(int* pArray, int limite)
@@ -504,9 +505,9 @@ int utn_printArrayInt(int* pArray, int limite)
 }
 /**
  * \brief ordena un array de enteros ASC
- * \param pArray es el puntero al array a ser ordenado.
- * \pram size Es la longitud del array.
- * \param order
+ * \param pArray int es el puntero al array a ser ordenado.
+ * \pram size int Es la longitud del array.
+ * \param order int 1 ordena de forma ascendente y 0 de forma descendente
  * \return 0 si Ok o -1 para indicar un error.
  */
 int utn_ordenarArrayInt(int* pArray, int limite, int order)
@@ -597,7 +598,7 @@ int utn_contadorArrayChar(char* pArray, char valorBuscado, int* pContador)
 }
 /**
 * \brief ​ Verifica​ ​ si​ ​ la​ ​ cadena​ ​ ingresada​ ​ del tipo char cuenta con el primer caracter como mayuscula y el resto de los caracteres en minuscula
-* \​param​ ​ cadena​ ​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
+* \​param​ ​pArray char*​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
 * \return ​ Retorna​ 0 (​ vardadero​ ) ​ si​ ​ la​ ​ cadena​ ​ es​ un char
 *  con una mayuscula  en la posicion [0] y minusculas en el resto de las posiciones.
 *  Devuelve -1 (​ falso​ ) ​ si​ no se cumplieron estas condiciones.
@@ -623,7 +624,7 @@ int utn_verifyUpperFirstCharArray(char *pArray)
 }
 /**
 * \brief ​ Convierte la primer letra de una cadena alfabetica en mayuscula y el resto en minusculas.
-* \​param​ ​ cadena​ ​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
+* \​param​ pArray char*​ ​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
 * \return ​ Retorna​ 0 (​ vardadero​ ) ​ si pudo realizarse la operacion
 *  Devuelve -1 (​ falso​ ) ​ si​ no se cumplieron estas condiciones.
 */
@@ -718,7 +719,7 @@ static int utn_isValidCuit(char* array)
 }
 /**
 * \brief ​ Valida la cantidad de caracteres de un Array
-* \​param​ ​ pArray[]​ char​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
+* \​param​ ​ pArray[]​ char*​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
 * \return ​ Retorna​ la cantidad de caracteres de la cadena si pudo calcularse
 *  Devuelve -1(​ falso​ ) ​ si el array es nulo.
 */
@@ -740,12 +741,12 @@ static int utn_verifyLengthArray(char* pArray)
 }
 /**
 * \brief Solicita un CUIT al usuario y lo valida.
-* \param char* mensaje, Es el mensaje a ser mostrado al usuario.
-* \param char* mensajeError, Es el mensaje de error a ser mostrado al usuario.
-* \param char* pResultado, puntero al espacio de memoria donde se dejará el valor obtenido.
-* \param int minimo, valor minimo admitido
-* \param int maximo, valor maximo admitido
-* \param int reintentos, cantidad de oportunidades para ingresar el dato
+* \param mensaje char* Es el mensaje a ser mostrado al usuario.
+* \param mensajeError char* Es el mensaje de error a ser mostrado al usuario.
+* \param pResultado char* puntero al espacio de memoria donde se dejará el valor obtenido.
+* \param minimo int valor minimo admitido
+* \param maximo int valor maximo admitido
+* \param reintentos int cantidad de oportunidades para ingresar el dato
 * \return (-1) Error / (0) Ok
  */
 int utn_getCuit(char* message, char* errorMessage, char* pResult, int attemps, int limit)
@@ -777,7 +778,7 @@ int utn_getCuit(char* message, char* errorMessage, char* pResult, int attemps, i
 }
 /**
 * \brief ​ Valida si una cadena es un nombre de archivo valido
-* \​param​ ​ char* array​​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
+* \​param​ ​array​ char*​ Cadena​ ​ de​ ​ caracteres​ a ​ ser​ ​ analizada
 * \return ​ Retorna​ 1 (​ verdadero​ ) ​ si se comprobó ser un nombre de arhivo valido
 *  Devuelve 0 (​ falso​ ) ​ si​ no se cumplieron estas condiciones.
 */
@@ -817,11 +818,11 @@ int isValidFileName(char* array)
 }
 /**
 * \brief Solicita un String al usuario y lo valida.
-* \param char* message, Es el mensaje a ser mostrado al usuario.
-* \param char* errorMessage, Es el mensaje de error a ser mostrado al usuario.
-* \param char* pResult, puntero al espacio de memoria donde se dejará el valor obtenido.
-* \param int attempts, cantidad de oportunidades para ingresar el dato
-* \param limit la longitud del array permitida
+* \param message char* Es el mensaje a ser mostrado al usuario.
+* \param errorMessage char* Es el mensaje de error a ser mostrado al usuario.
+* \param pResult char* puntero al espacio de memoria donde se dejará el valor obtenido.
+* \param attempts int cantidad de oportunidades para ingresar el dato
+* \param limit int la longitud del array permitida
 * \return (-1) Error / (0) Ok
  */
 int utn_getString(char* message, char* errorMessage, char* pResult, int attemps, int limit)
@@ -850,20 +851,5 @@ int utn_getString(char* message, char* errorMessage, char* pResult, int attemps,
 	}
 	return retorno;
 }
-/*
-int utn_isInArrayChar(char* array, int lenArray, char* inputInt)
-{
-	int retorno = -1;
-	int i;
-	for(i=0 ; pArray[i] != '\0'; i++)
-			{
-				if(pArray[i] >= 'A' && pArray[i] <= 'Z')
-				{
-					bufferChar = pArray[i]+32;
-					pArray[i] = bufferChar;
-				}
-			}
-	return retorno;
-}
-*/
+
 
